@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="FontEnd/layoutEtudiant">
+
+<body>
+<div layout:fragment="content11">
+
+<!--====== SLIDER PART START ======-->
+    
+    <section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url(frontend/images/page-banner-2.jpg)">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-banner-cont">
+                        <h2>Our Courses</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Courses</li>
+                            </ol>
+                            <!-- afficher classe ttttttttttttttttttt-->
+                            <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" >  <span
+										class="brand-text font-weight-light"
+										th:text="${#authentication.getPrincipal().getUser1()}"></span></li>
+							</ol>
+                        </nav>
+                    </div>  <!-- page banner cont -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== PAGE BANNER PART ENDS ======-->
+
+
+      <section id="blog-page" class="pt-90 pb-120 gray-bg">
+        <div class="container">
+           <div class="row">
+               <div class="col-lg-12">
+                   <div class="singel-blog mt-30">
+                       
+                       <div class="blog-cont">
+                           
+								
+								
+													
+				<div class="row justify-content-center">
+                    
+						
+                   <section id="corses-singel" class="pt-10 pb-120 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="corses-singel-left mt-30">
+                        <div class="title">
+                            <h3 >Selectionner seulement les bonnes reponses.</h3>
+		
+		<form action="submit" method="POST" th:object=${qForm}>
+			<div  th:each="ques, i: ${qForm.questions}">
+				<p class="title" th:text="${ques.title}"></p>
+				
+				<div class="option">
+					<input type="radio" th:name="|questions[${i.index}].chose|" th:value="1" />
+					<p th:text="${ques.optionA}"></p>
+				</div>
+				
+				<div class="option">
+					<input type="radio" th:name="|questions[${i.index}].chose|" th:value="2" />
+					<p th:text="${ques.optionB}"></p>
+				</div>
+				
+				<div class="option">
+					<input type="radio" th:name="|questions[${i.index}].chose|" th:value="3" />
+					<p th:text="${ques.optionC}"></p>
+				</div>
+				
+				<input type="hidden" th:name="|questions[${i.index}].quesId|" th:value="${ques.quesId}" />
+				<input type="hidden" th:name="|questions[${i.index}].title|" th:value="${ques.title}" />
+				<input type="hidden" th:name="|questions[${i.index}].ans|" th:value="${ques.ans}" />
+			</div>
+			
+			<button type="submit" class="btn btn-danger d-block mx-auto mt-4">Submit Answer</button>
+		</form>
+                        </div> 
+                        
+                    </div>                     
+                </div>                
+            </div>            
+       
+        </div> <!-- container -->
+    </section>
+  
+  
+                       </div>                       
+                   </div> <!-- singel blog -->                  
+                   
+               </div>
+           </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+    
+    
+    
+ </div>   
+</body>
+</html>

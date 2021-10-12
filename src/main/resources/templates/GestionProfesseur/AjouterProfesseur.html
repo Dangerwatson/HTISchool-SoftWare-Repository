@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Editer Professeur</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Gestion des
+										Professeurs</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<!-- left column -->
+							<div class="col-md-12">
+								<!-- jquery validation -->
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title">Modifier les informatios</h3>
+									</div>
+									<!-- /.card-header -->
+									<!--************************** form start ********************************-->
+									<form th:action="@{/saveProf}" method="post" th:object="${professeurs}" enctype="multipart/form-data">
+										<div class="card-body">
+														<div class="row">
+													<div class="col-12  col-sm-6">
+															<div class="form-group">
+																<label for="exampleInputEmail1">CODE</label> <input
+															type="text" class="form-control"
+															th:value="${genererCode1}" name="codeProf" readonly>
+															</div>
+														</div>
+														<div class="col-12  col-sm-6">
+															<div class="form-group">
+																<label for="exampleInputEmail1">NOM</label> <input
+															type="text" class="form-control" name="nom" id="nomP" pattern="^[A-Z]+[ -]?[A-Z]+$" maxlength="20"  required onkeyup="this.value=this.value.toUpperCase()">
+															<div class="invalid-feedback"></div>
+															</div>
+														</div>
+													</div>
+													<div class="row">														
+														<div class="col-12  col-sm-6">
+															<div class="form-group">
+														<label for="exampleInputEmail1">PRENOM</label> <input
+															type="text" class="form-control" name="prenom" id="prenomP" pattern="^[A-Z]+[ -]?[A-Z]+$" maxlength="20"  required onkeyup="this.value=this.value.toUpperCase()">
+															<div class="invalid-feedback"></div>
+													</div>
+														</div>
+														<div class="col-sm-6">
+															<div class="form-group">
+														<label>SEXE</label> <select  th:field="*{sexe}" class="form-control" required>
+														    <option value="">-SELECT-</option>
+															<option value="Masculin">Masculin</option>
+															<option value="Feminin">Feminin</option>
+														</select>
+													</div>
+
+														</div>
+													</div>
+																								
+													<div class="row">
+														<div class="col-sm-6">
+															<div class="form-group">
+														<label>TELEPHONE</label> 
+														<div class="input-group">
+														<div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i >+(509)</i></span>
+                                                         </div>
+														<input type="text" th:field="*{telephone}" class="form-control" 
+															id="telephoneProf" pattern="^[0-9]{4}[ -]?[0-9]{4}$" maxlength="9" minlength="8"  required>
+															<div class="invalid-feedback"></div>
+														</div>
+													</div>
+														</div>
+
+														<div class="col-12 col-sm-6">
+															<div class="form-group">
+														<label for="exampleInputEmail1">LIEU DE NAISSANCE</label> <input type="text" th:field="*{lieuDeNaissance}" class="form-control"
+															id="lieuN" pattern="^[A-Z]+[ -]?[A-Z]+[ -]?[A-Z]+$" maxlength="35" required onkeyup="this.value=this.value.toUpperCase()">
+															<div class="invalid-feedback"></div>
+													</div>
+															
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-12 col-sm-6">
+															<div class="form-group">
+														<label for="exampleInputEmail1">ADRESSE</label> <input type="text" th:field="*{adresse}" class="form-control"
+															id="exampleInputEmail1">
+													    </div>
+														</div>
+														
+														<div class="col-12  col-sm-6">												
+													<div class="form-group">
+														<label for="customFile">Custom File</label>
+														<label for="customFile">Custom File</label>
+														<label>PHOTOS</label>
+														<div class="custom-file">
+															<input type="file" class="custom-file-input"
+																id="customFile" name="photos" accept="image/png, image/jpeg"> <label
+																class="custom-file-label" for="customFile">Choose
+																file</label>
+														</div>
+													</div>
+													</div>
+														</div>
+														
+													<div class="row">
+														<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">EMAIL</label> <input
+																type="text" name="emailPersonne" class="form-control"
+																id="emailProf" pattern="^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$" required>
+																<div class="invalid-feedback"></div>
+														</div>
+														</div>
+														
+														<div class="col-12  col-sm-6">												
+													<div class="form-group">
+														<label>Classe</label>														
+														 <select class="form-control" th:field="*{classe}"   required>
+														 <option value="">-SELECT-</option>
+														<th:block th:each="p: ${listeClasse}">														 
+																<option th:text="${p.classeName}" th:value="${p.idClasse}"></option>
+														</select>
+													</div>
+													</div>
+													</div>
+													
+													<div class="row">
+														<div class="col-12  col-sm-6">												
+													<div class="form-group">
+															<label for="exampleInputEmail1">NIVEAU ETUDE</label> <input
+																type="text" name="niveauEd" class="form-control"
+																id="salaireProf" pattern="^[A-Z]+[ -]?[A-Z]+$" maxlength="40"  required onkeyup="this.value=this.value.toUpperCase()">
+																<div class="invalid-feedback"></div>
+														</div>
+													</div>
+													<div class="col-12  col-sm-6">												
+													<div class="form-group">
+															<label for="exampleInputEmail1">REMARQUE</label> <textarea
+																 name="remarque" rows="3" class="form-control"></textarea>
+																<div class="invalid-feedback"></div>
+														</div>
+													</div>
+													</div>
+													
+													
+										</div>
+
+										<!-- /.card-body -->
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+								<!-- /.card -->
+							</div>
+							<!--/.col (left) -->
+							<!-- right column -->
+							<div class="col-md-6"></div>
+							<!--/.col (right) -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

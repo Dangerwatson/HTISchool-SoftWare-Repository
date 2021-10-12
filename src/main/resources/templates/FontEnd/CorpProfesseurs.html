@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="FontEnd/layoutProfesseur">
+
+<body>
+<div layout:fragment="content11">
+
+<!--====== SLIDER PART START ======-->
+    
+    <section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url(frontend/images/page-banner-2.jpg)">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12"><br><br>
+                    <div class="page-banner-cont">
+                        <h2></h2>                        
+                    </div>  <!-- page banner cont -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+        
+               <form th:action="@{/logout}" method="post">
+					<div class="page-banner-cont">					
+						<h2>Welcome [[${#request.userPrincipal.principal.fullName}]]</h2>
+					</div>
+				</form>
+				
+				
+    </section>
+
+    <!--====== PAGE BANNER PART ENDS ======-->
+
+
+      <section id="blog-page" class="pt-10 pb-120 gray-bg">
+        <div class="container">
+           <div class="row">
+               <div class="col-lg-12">
+                    <!-- singel blog  jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjforme3 --> 
+                   
+                      <div class="main-form">
+                          
+                            
+                            <div class="col-lg-18">
+                    <div class="teachers-right mt-50">
+                        <ul class="nav nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="active" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="true">AJOUTER COURS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="false">AJOUTER EVALUATION</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">RESULTAT EVALUATION</a>
+                            </li>
+                        </ul> <!-- nav -->
+                         
+                        <div class="tab-content" id="myTabContent">
+                        
+                        
+                        <!-- 1ererrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr -->
+                         <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                                <div class="dashboard-cont">
+                                 <div class="contact-from">
+                                 <form id="uploadFiles" name="uploadFiles" method="post"  th:action=@{/uploadFiles2} encType="multipart/form-data">
+                        <div class="section-title">
+                            <h5>AJOUTER COURS</h5>                            
+                        </div> <!-- section title -->
+                        <div class="main-form pt-8">  
+                               
+                                <div class="row">
+                                 
+                                    <div class="col-md-4">									
+                                        <div class="singel-form form-group"><label>Upload Multiple Files:</label>                                            
+                                            <input  type="file" name="files" multiple required accept="video/*" class="form-control"  >                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>Classe:</label>
+                                             <select class="form-control" th:field="*{classe}"   required>
+													<option value="-SELECT-">-SELECT-</option>
+													<th:block th:each="p: ${listeClasse}">														 
+													<option th:text="${p.classeName}" th:value="${p.idClasse}"></option>
+											</select>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>Coefficient:</label>
+                                             <input type="text" name="coefficient" class="form-control" >
+                                        </div> 
+                                    </div><br><br><br><br><br>
+                                    
+                                    
+                                     <div class="col-lg-12 row h-100 justify-content-center align-items-center">
+                                                        <div class="form-singel">
+                                                           <button type="submit" class="main-btn">Suivant</button>
+                                                        </div>
+                                                    </div>
+                                                    
+                                </div> <!-- row -->
+                        </div> <!-- main form -->
+                        </form>
+                    </div> <!--  contact from -->
+                            <!-- <!-- listeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee -->
+                            
+                                   <div class="card-body">									
+										<table id="example1"
+											class="table table-bordered table-striped">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Name</th>
+													<th>Download Link</th>
+													<th>Date Publication</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="doc:${docs}">
+													 <td th:text="${doc.Id}" />
+                                                     <td th:text="${doc.docName}"/>
+                                                     <td><a th:href="@{'/downloadFile/'+${doc.id}}">Download</a></td>
+                                                     <td th:text="${doc.datePublication}"/>
+													<td> <a
+														th:href="@{/deleteDocF(id=${doc.id})}"
+														class="btn btn-danger" id="deleteButtonCat"><i class="fas fa-trash"></i></a></td>
+												</tr>
+
+											</tbody>
+											<tfoot>
+												<tr>
+													<th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Download Link</th>
+                                                    <th>Date Publication</th>
+                                                    <th>Action</th>
+												</tr>
+											</tfoot>
+										</table>
+
+									</div>
+									
+									
+									<!-- /.Modal delete -->	
+								<div class="modal" tabindex="-1" role="dialog" id="deleteCat">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title">Confirm Delete</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body">
+								        <p>Voulez-vous vraiment supprimer?</p>
+								      </div>
+								      <div class="modal-footer">
+								        <a href="" class="btn btn-primary" id="delRef">Yes,Delete</a>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+
+							<!-- 	/.modal delete -->
+									
+                                </div> <!-- dashboard cont -->
+                            </div>
+                             
+									
+                            
+                            
+                            
+                            
+                            <!-- 2ememmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
+                             <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="courses-tab">                             
+                                <div class="dashboard-cont">
+                                 <div class="contact-from">
+                                 <form  th:action="@{/saveQuestion}" method="post" th:object="${question}">
+                        <div class="section-title">
+                            <h5>AJOUTER EVALUATION</h5>                            
+                        </div> <!-- section title -->
+                        <div class="main-form pt-8">                            
+                                <div class="row">
+                                    
+                                    <div class="col-md-12">
+                                        <div class="singel-form form-group"><label>Question:</label>
+                                             <input	type="text" name="title"  class="form-control" >                                           
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>Option A:</label>
+                                            <input type="text" name="optionA"  class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>Option B:</label>
+                                            <input type="text" name="optionB" class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>Option C:</label>
+                                            <input type="text" name="optionC" class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>Reponse :</label>
+                                            <input type="text" name="ans" class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>chose:</label>
+                                            <input type="text" name="chose" value="-1" class="form-control" readOnly>                                            
+                                        </div> 
+                                    </div>
+                                    
+                                    <br><br><br><br><br><br>
+                                     <div class="col-lg-12 row h-100 justify-content-center align-items-center">
+                                                        <div class="form-singel">
+                                                           <button type="submit" class="main-btn">Suivant</button>
+                                                        </div>
+                                                    </div>
+                                   
+                                </div>                             
+                        </div> <!-- main form -->
+                        </form>
+                    </div> <!--  contact from -->
+                    
+                    
+                    <div class="card-body">									
+										<table id="example1"
+											class="table table-bordered table-striped">
+											<thead>
+												<tr>
+													<th>Question</th>
+				                                    <th>Option A</th>
+				                                    <th>Option B</th>
+				                                    <th>Option C</th>
+				                                    <th>Reponse</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="quest : ${listeq}">
+												    <td th:text="${quest.title}"></td>
+				                                    <td th:text="${quest.optionA}"></td>
+				                                    <td th:text="${quest.optionB}"></td>
+				                                    <td th:text="${quest.optionC}"></td>
+				                                    <td th:text="${quest.ans}"></td>
+				                                    <td> 
+				                                    <a
+														th:href="@{/editQuest(quesId=${quest.quesId})}"><i></i>Edit</a>/
+				                                    <a	th:href="@{/delet(quesId=${quest.quesId})}"
+														 id="deleteButtonCat"><i >Delete</i></a></td>
+		                                       	</tr>
+
+											</tbody>
+											<tfoot>
+												<tr>
+													<th>Question</th>
+				                                    <th>Option A</th>
+				                                    <th>Option B</th>
+				                                    <th>Option C</th>
+				                                    <th>Reponse</th>
+
+												</tr>
+											</tfoot>
+										</table>
+
+									</div>				
+                                
+                                </div> <!-- courses cont -->
+                            </div>
+                        
+                        
+                        
+                        <!-- 3emmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
+                           <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                               <div class="dashboard-cont">
+                                    <div class="contact-from">
+                        <div class="section-title">
+                            <h5>Resulta Evaluation</h5>                            
+                        </div> <!-- section title -->
+                        <div class="main-form pt-45">                            
+                                <div class="row">                                
+                               
+		                 
+		                 <div class="card-body">									
+										<table id="example1"
+											class="table table-bordered table-striped">
+											<thead>
+												<tr>
+													<th>Name</th>
+				                                    <th>Point</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="score : ${sList}">
+				                                    <td th:text="${score.username}"></td>
+				                                    <td th:text="${score.totalCorrect}"></td>
+		                                       	</tr>
+
+											</tbody>
+											<tfoot>
+												<tr>
+													<th>Name</th>
+				                                    <th>Point</th>
+
+												</tr>
+											</tfoot>
+										</table>
+
+									</div>								
+
+                                </div>                             
+                        </div> <!-- main form -->
+                    </div> <!--  contact from -->
+                                </div> <!-- reviews cont -->
+                            </div>
+                        
+                                                      <!-- <div class="col-lg-12 row h-100 justify-content-center align-items-center">
+                                                        <div class="form-singel">
+                                                           <button type="submit" class="main-btn">Suivant</button>
+                                                        </div>
+                                                    </div> -->
+                                                   
+                        </div> <!-- tab content --> 
+                        </form>                     
+                        </div>
+                        
+                    </div> 
+                        </div>                 
+                   
+               </div>
+           </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+   
+    
+ </div>   
+</body>
+</html>

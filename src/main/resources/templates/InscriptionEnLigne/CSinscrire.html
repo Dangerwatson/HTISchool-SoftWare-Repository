@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="FontEnd/layout1">
+	<head>
+      <!--====== Required meta tags ======-->
+    <meta charset="utf-8">
+	</head>
+
+<body>
+<div layout:fragment="content11">
+
+<!--====== SLIDER PART START ======-->
+    
+    <section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url(frontend/images/page-banner-2.jpg)">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12"><br><br>
+                    <div class="page-banner-cont">
+                        <h2>Comment s'inscrire</h2>
+                        
+                    </div>  <!-- page banner cont -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== PAGE BANNER PART ENDS ======-->
+
+
+      <section id="blog-page" class="pt-90 pb-120 gray-bg ">
+        <div class="container">
+           <div class="row ">
+               <div class="col-lg-7">
+                   <div class="singel-blog mt-30">
+                       
+                       <div class="blog-cont">
+                           <h3 >Bienvenue dans la communaute de SunShine.</h3><br>
+                           
+                           <p>Pour pouvoir s'inscrire dans notre système, il suffit de bien visualiser et de suivre les étapes successivement.<br>
+                           NB: Après avoir rempli toutes les les étapes, par la suite, dans la nouvelle page qui s'affiche vous devez créer un compte élève.
+                          
+                           </p>
+                            <div class="text-center"><br><br>
+                          <a th:href="@{/onlineEnrolled}"><button type="button" class="main-btn">Suivant</button></a>
+                       </div>
+                       </div>                       
+                   </div> <!-- singel blog -->                  
+                   
+               </div>
+               
+                <div class="col-lg-5">
+                   <div class="saidbar">
+                       <div class="row">
+                           
+                           <div class="col-lg-12 col-md-6">
+                               <div class="saidbar-post mt-30">
+                                   <h4>Etapes a Suivre</h4>
+                                   <ul>
+                                       <li>
+                                            <a href="#">
+                                                <div class="singel-post">
+                                                   <div class="thum">
+                                                       <img src="frontend/images/blog/blog-post/infoPer.png" width="150" height="150" alt="Blog">
+                                                   </div>
+                                                   <div class="cont">
+                                                       <h6> 1)Information personnelle de l'élève</h6> 
+                                                                                                             
+                                                   </div>
+                                               </div> <!-- singel post -->
+                                            </a>
+                                       </li>
+                                       <li>
+                                            <a href="#">
+                                                <div class="singel-post">
+                                                   <div class="thum">
+                                                       <img src="frontend/images/blog/blog-post/bp-2.jpg" width="150" height="150" alt="Blog">
+                                                   </div>
+                                                   <div class="cont">
+                                                       <h6>2)Information parentale.</h6>
+                                                   </div>
+                                               </div> <!-- singel post -->
+                                            </a>
+                                       </li>
+                                       <li>
+                                            <a href="#">
+                                                <div class="singel-post">
+                                                   <div class="thum">
+                                                       <img src="frontend/images/blog/blog-post/infosUrgence.png" width="150" height="150" alt="Blog">
+                                                   </div>
+                                                   <div class="cont">
+                                                       <h6>3)Information sur une personne de confiance en cas d'urgence.</h6>
+                                                   </div>
+                                               </div> <!-- singel post -->
+                                            </a>
+                                       </li>
+                                   </ul>
+                               </div> <!-- saidbar post -->
+                           </div>
+                       </div> <!-- row -->
+                   </div> <!-- saidbar -->
+               </div>
+           </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+    
+   
+ </div>   
+</body>
+</html>

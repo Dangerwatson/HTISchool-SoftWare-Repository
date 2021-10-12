@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>PRESENCE</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">PRESENCE</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							
+							<!-- /.col -->
+ <div class="col-md-12">
+            <div  class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">CAHIER D'APPEL</h3> 
+                <!-- card-tools float-left -->
+               
+                
+                
+                <div class="card-tools">
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" placeholder="Search Mail">
+                  <div class="input-group-append">
+                    <div class="btn btn-primary">
+                      <i class="fas fa-search"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              
+               <form th:action="@{/savePresenceP}" method="post" th:object="${prof}">
+               
+               <div class="card-body p-0">               
+              <div class="mailbox-controls">
+              
+                <!-- Check all button -->
+                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i></i><!-- <i class="far fa-square"></i> -->
+                <input type="checkbox"  id="check1" class="checkPresAll"/>
+                </button> Check all                          
+              <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                <thead>
+												<tr>
+													<th>PRESENCE/ABSENCE</th>																										
+													<th>CODE ELEVES</th>
+													<th>NOM</th>
+													<th>PRENOM</th>
+												</tr>
+				</thead>
+                  <tbody>
+                  <tr th:each="p, ele:${listProfesseurs}">
+                    <td>                     
+                      <input type="checkbox"  id="check1" class="checkPres" />                      
+                        <input type="text"   name="presAbsP"  class="presValue  border-0" size="5" readonly/>                       
+                        
+                                               
+                    </td>                   
+                   
+                    <td th:text="${p.codeProf}" class="mailbox-name"></td>
+                    <td th:text="${p.nom}" class="mailbox-name"></td>                  
+                    <td th:text="${p.prenom}" class="mailbox-subject"><b>AdminLTE 3.0 Issue</b> - Trying to find a solution to this problem...
+                    </td>
+                    <td> <input type="hidden"  th:value="${p.idPerson}"  name="idPerson"  class="form-control" ></td>
+                  </tr>
+                  
+                  
+                  </tbody>
+                </table>
+                <!-- /.table -->
+              </div>
+              <!-- /.mail-box-messages -->
+            </div>
+              </div>
+              <div class="card-footer">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+              </form>
+              
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+          </div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

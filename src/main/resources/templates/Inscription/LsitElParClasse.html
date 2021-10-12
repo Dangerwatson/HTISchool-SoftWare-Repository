@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>LISTE ELEVES EN FONCTION DE CLASSE</h1>
+							</div>
+							<!-- <div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">LISTE ELEVES EN FONCTION DE CLASSE</li>
+								</ol>
+							</div> -->
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">LISTE DES CLASSES</h3>
+
+										<div class="card-tools">
+											<button type="button" class="btn btn-tool"
+												data-card-widget="collapse">
+												<i class="fas fa-minus"></i>
+											</button>
+										</div>
+									</div>
+									<div class="card-body p-0" >
+										<ul class="nav nav-pills flex-column" >
+											<li class="nav-item" th:each="c: ${listeClasse}"><a class="nav-link"
+												 th:value="${c.idClasse}"
+												th:text="${c.classeName}" th:href="@{/findByClasseEl(idClasse=${c.idClasse})}"> <i class=" nav-link fas fa-inbox"></i>
+											 <span class="badge bg-primary float-right"></span>
+											</a></li>
+
+										</ul>
+									</div>
+									
+								</div>
+								
+							</div>	
+							<!-- /.col -->
+ <div class="col-md-12">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">LISTE DES ELEVES</h3> 
+                           <div class="card-header float-right">
+										<!-- <h3 class="card-title">DataTable with default features</h3> -->
+										<a th:href="@{inscription}"><button type="button" class="btn btn-primary"
+											data-toggle="modal" data-target="#addClasses">add
+											new</button></a>
+							</div>
+                
+                <div class="col-md-2 ml-auto mr-auto">
+                <div class="input-group input-group-sm">                
+                  <input type="text" th:object="${clsEl}"  th:field="*{classeName}"  class=" border-0" readonly >                                  
+                </div>             
+              </div>                  
+                           
+              </div>
+              
+               <form >
+               <div th:if="${listeEleve}">          
+                   <!-- Main content -->
+                    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            
+            <div class="card">
+              <!-- <div class="card-header">
+                <h3 class="card-title">Date:</h3>
+              </div> -->
+              <!-- /.card-header -->
+              <div class="card-body"> 
+                <table id="listePres" class="table table-bordered table-striped">
+                  <thead>
+                 <tr>
+                    <th>ID</th>
+                     <th>PHOTOS</th>
+                    <th>CODE ELEVES</th>
+                    <th>NOM</th>
+                    <th>PRENOM</th>
+                    <th>SEXE</th>
+                    <th>DATE NAIS.</th>
+                    <th>LIEU NAIS.</th>                      
+                    <th>DERNIER ETAB.</th>
+                    <th>RELIGION</th>
+                    <th>DERNIER CLASSE FREQ.</th>
+                     <th>TEL</th>
+                    <th>PIECE FOURN.</th>
+                      <th>ADRESSE</th>
+                    <th>CLASSE</th>
+                    <th>ANNEE ACA.</th> 
+                    <!-- <th>TYPE BOURSE</th> -->                   
+                     <th>ACTION</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                   <tr th:each="el:${listeEleve}">
+									<td th:text="${el.idPerson}"></td>
+									<td>
+									     <img class="img-circle" th:src="@{/getPhotoEl(idPerson=${el.idPerson})}" width="50" height="50"/>
+									</td>
+									<td th:text="${el.codeEl}"></td>
+									<td th:text="${el.nom}"></td>
+									<td th:text="${el.prenom}"></td>
+									<td th:text="${el.sexe}"></td>
+									<td th:text="${el.dateNaissance}"></td>
+									<td th:text="${el.lieuDeNaissance}"></td>
+									<td th:text="${el.dernierEtablissement}"></td>
+									<td th:text="${el.religion}"></td>
+									<td th:text="${el.dernierClasse}"></td>
+									<td th:text="${el.telephone}"></td>
+									<td th:text="${el.pieceFournies}"></td>
+									<td th:text="${el.adresse}"></td>
+									<td th:text="${el.classe.classeName}"></td>
+									<td th:text="${el.AnneeAcade.anneeAC}"></td>
+									<!-- <td th:text="${el.typeDeBou.typeBourse}"></td> -->
+									
+									<td>
+                                        <a th:href="@{/editeEleves(idPerson=${el.idPerson})}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                         <a th:href="@{/deleteEleves(idPerson=${el.idPerson})}" class="btn btn-danger" 
+                                         id="deleteButtonCat"><i class="fas fa-trash"></i></a>
+                                         <a th:href="@{/Details(idPerson=${el.idPerson})}" class="btn btn-info"><i class="fas fa-list"></i></a>
+                                         
+                                    </td>
+                                </tr>         
+                  
+                  </tbody>
+                  <tfoot>
+                 <tr>
+                    <th>ID</th>
+                     <th>PHOTOS</th>
+                    <th>CODE ELEVES</th>
+                    <th>NOM</th>
+                    <th>PRENOM</th>
+                    <th>SEXE</th>
+                    <th>DATE NAIS.</th>
+                    <th>LIEU NAIS.</th>                      
+                    <th>DERNIER ETAB.</th>
+                    <th>RELIGION</th>
+                    <th>DERNIER CLASSE FREQ.</th>
+                     <th>TEL</th>
+                    <th>PIECE FOURN.</th>
+                      <th>ADRESSE</th>
+                    <th>CLASSE</th>
+                    <th>ANNEE ACA.</th> 
+                    <!-- <th>TYPE BOURSE</th> -->                   
+                     <th>ACTION</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+              </div>
+              
+              </form>
+              
+              
+            </div>
+            
+          </div> 
+          
+          
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+			</div>
+		</div>
+	</div>
+	<script src=https://www.kryogenix.org/code/browser/sorttable/sorttable.js></script>
+	
+</body>
+</html>

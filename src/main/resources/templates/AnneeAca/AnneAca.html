@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Liste des Annee</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Liste des Annee</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Content Wrapper. Contains page content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<!-- Tables Data -->
+
+								<div class="card">
+									<div class="card-header">
+										<!-- <h3 class="card-title">DataTable with default features</h3> -->										
+									</div>
+									<!-- /.card-header -->
+									<div class="card-body">
+										<table id="example1"
+											class="table table-bordered table-striped">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>TYPE CATEGORIE</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="ac:${listeAnnee}">
+													<td th:text="${ac.idAcad}"></td>
+													<td th:text="${ac.anneeAC}"></td>
+													<td>										 
+														 									
+								                              
+                                                             <a th:href="@{/deleteAn(idAcad=${ac.idAcad})}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+
+													</td>
+												</tr>
+
+											</tbody>
+											<tfoot>
+												<tr>
+													<th>ID</th>
+													<th>TYPE CATEGORIE</th>
+													<th>Action</th>
+												</tr>
+											</tfoot>
+										</table>
+
+										
+
+
+									</div>
+									<!-- /.card-body -->
+								</div>
+								<!-- /.card -->
+
+
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content-wrapper -->
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+

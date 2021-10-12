@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1> AJOUTER CLASSE</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Gestion des
+										Classes</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid h-100">
+						<div class="row h-100 justify-content-center align-items-center">
+							<!-- left column -->
+							<div class="col-md-10">
+								<!-- jquery validation -->
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title"> CLASSE</h3>
+									</div>
+									<!-- /.card-header -->
+									<!--************************** form start ********************************-->
+									<form th:action="@{/saveClasse}" method="post" th:object="${classe}">
+										<div class="card-body">
+											<div class="row">
+												
+												<div class="col-12 col-sm-6">
+													<div class="form-group">
+														<label for="exampleInputEmail1">CODE Classe</label> <input
+															type="text"  class="form-control"
+															name="codeClasse" th:value="${genererCode1}" readOnly>
+													</div>
+													<!-- /.form-group -->
+												</div>
+												<!-- /.col -->
+												
+												<div class="col-12 col-sm-6">
+													<div class="form-group">
+														<label for="exampleInputEmail1">CATEGORIE CLASSE</label> <select class="form-control" name="nomCat" required>
+														<option value="">-SELECT CATEGORY-</option>
+															<option value="PRIMAIRE">PRIMAIRE</option>
+															<option value="KINDERGADEN">KINDERGARTEN</option>
+															<option value="SECONDAIRE">SECONDAIRE</option>															
+														</select>
+													</div>
+													<!-- /.form-group -->
+												</div>
+												<!-- /.col -->
+											</div>
+											
+											<div class="row">
+												
+												<div class="col-12 col-sm-6">
+													<div class="form-group">
+														<label for="exampleInputEmail1">NOM CLASSE</label> 
+														<input type="text" class="form-control" th:field="*{classeName}"  id="classeN" onkeyup="this.value=this.value.toUpperCase()"
+														pattern="^[0-9]?[A-Z]+[ -]?[A-Z]+[0-9]?$" maxlength="20" minlength="8"  required>
+													    <div class="invalid-feedback"></div>
+													</div>
+													<!-- /.form-group -->
+												</div>
+												<!-- /.col -->
+												
+											</div>
+											
+
+										</div>										
+										
+										<!-- /.card-body -->
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+								<!-- /.card -->
+							</div>
+							<!--/.col (left) -->
+							<!-- right column -->
+							<div class="col-md-6"></div>
+							<!--/.col (right) -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

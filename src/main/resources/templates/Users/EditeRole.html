@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>EDITER ROLES</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active"> Category</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid h-100">
+						<div class="row h-100 justify-content-center align-items-center">
+							<!-- left column -->
+							<div class="col-md-10">
+								<!-- jquery validation -->
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title">Category ROLE</h3>
+									</div>
+									<!-- /.card-header -->
+									<!--************************** form start ********************************-->
+									<form th:action="@{/saveRole}" th:object="${role}" method="post">
+									<input type="hidden" th:field="*{id}">
+									
+										<div class="card-body">
+										<!-- alert -->
+									<div class="alert alert-success alert-dismissible fade show"  th:if="${success}" role="alert">
+                                         <strong>Modification reussi avec success</strong> 
+                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                         </button>
+                                     </div>
+                                    <!--  alert -->
+										
+										
+											<div class="row">
+												<div class="col-12 col-sm-6">
+													<div class="form-group">
+														<label>Role:</label> <select class="form-control" th:field="*{name}" required>
+														<option value="">-SELECT ROLE-</option>
+															<option value="Admin Coordonateur">Admin Coordonateur</option>
+															<option value="PROFESSEUR">PROFESSEUR</option>
+															<option value="SECRETAIRE">SECRETAIRE</option>
+															<option value="DIRECTEUR">DIRECTEUR</option>
+															<option value="ELEVES">ELEVES</option>															
+														</select>
+													</div>
+												</div>												
+											</div>
+										</div>
+
+										<!-- /.card-body -->
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+								<!-- /.card -->
+							</div>
+							<!--/.col (left) -->
+							<!-- right column -->
+							<div class="col-md-6"></div>
+							<!--/.col (right) -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

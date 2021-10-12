@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<div class="content-wrapper">
+			 <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <br>
+
+
+            <!-- Main content -->
+            <div class="invoice p-3 mb-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12">
+                  <h4>
+                    <i class="fas fa-globe"></i> SUNSHY ACADEMY
+                    <small class="float-right">Date: 2/10/2014</small>
+                  </h4>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- info row -->
+              <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                  <address>
+                    <h4 th:text="|${classe.nom} ${classe.prenom} ${classe.codeEl}"></h4>                    
+                    <h5 th:text="|${classe.classe.classeName}"></h5>
+                  </address>
+                </div>
+              
+             
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <!-- Table row -->
+              <div class="row">
+                <div class="col-12 table-responsive">
+                  <table class="table table-striped">
+                   <thead>
+                    <tr>
+                      <th>MATIERE</th>
+                      <th>COEFFICIENT</th>
+                      <th>NOTES</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                  <tr th:each="r:${releveNotes}">
+                  <td th:text="${r.matiere.nomMatiere}" ></td>
+                  <td th:text="${r.matiere.coefficient}" ></td>
+                  <td th:text="${r.note}"></td>
+                   </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <div class="row">
+             <div class="col-6">
+             </div>
+                <!-- /.col -->
+                <div class="col-6">
+                 
+                  <div class="table-responsive" >
+                    <table class="table">                    
+                      <tr th:each="rp:${Mo}">
+                        <th>Total:</th>
+                        <td th:text="${rp.total}"></td>
+                      </tr>
+                      <tr th:each="rp:${Mo}">
+                        <th>MOYENNE:</th>
+                        <td th:text="${rp.moyenne}"></td>
+                      </tr>                     
+                    </table>
+                  </div>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <!-- this row will not appear when printing -->
+              <div class="row no-print">
+                <div class="col-12">
+                  <button  type="button" onClick="window.print()" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</button>
+                  
+                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                    <i class="fas fa-download"></i> Generate PDF
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+</body>
+</html>

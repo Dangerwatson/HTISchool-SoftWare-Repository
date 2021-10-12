@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Details</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active"> Detail</li>
+								</ol>
+							</div>
+						</div>
+					</div>				
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+			
+			 <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">	
+<div id="GFG">
+            <!-- Main content -->
+            <div class="invoice p-3 mb-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12"  th:object="${inscription}">
+                  <h4>
+                   <!--  <i class="fas fa-globe"></i>AdminLTE, Inc. --><img	src="dist/img/a.png" alt="" width="100" height="100"><br><br>Date D'inscription:
+                    <small th:text="*{dateInsc}" class="float-right"> </small>                   
+                  </h4>
+                </div>
+                <!-- /.col -->
+              </div><br>
+              <!-- info row -->
+              <div class="row invoice-info" th:object="${inscription}">               
+                <div class="col-sm-4 invoice-col">                 
+                  <address>
+                    Code<br>
+                    Nom<br>
+                    Prenom<br>
+                    Sexe<br>
+                    DateNaissance<br>
+                    lieuDeNaissance             
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  
+                  <address>
+                    <strong  th:text="*{codeEl}"></strong><br>
+                     <strong  th:text="*{nom}"></strong><br>
+                    <strong  th:text="*{prenom}"></strong><br>
+                    <strong  th:text="*{sexe}"></strong><br>
+                    <strong  th:text="*{dateNaissance}"></strong><br>
+                    <strong  th:text="*{lieuDeNaissance}"></strong>                                         
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">                  
+                  <img class="img-circle" th:src="@{/getPhotoEl(idPerson=${inscription.idPerson})}" width="150" height="150"/>
+                </div>
+                <!-- /.col -->                
+              </div>
+              <!-- /.row -->
+             <h4>PERSONNE A	CONTACTER EN CAS D'URGENCE</h4><br>
+              <div class="row invoice-info" th:object="${inscription}">               
+                <div class="col-sm-4 invoice-col">                 
+                  <address>                   
+                    Personne responsable<br>
+                    Lien Parental<br>
+                    Telephone                    
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  
+                  <address>                    
+                    <!-- Personne a contacter en cas d'urgence -->
+                    <strong  th:text="*{contactPers}"></strong><br>
+                    <strong  th:text="*{lienParental}"></strong><br>
+                     <strong  th:text="*{tel1ConPers}"></strong><br>                     
+                  </address>
+                </div>                               
+              </div>
+</div>
+              
+              <!-- /.row -->
+
+              <!-- this row will not appear when printing -->
+              <div class="row no-print">
+                <div class="col-12">
+                  <button type="button"  rel="noopener" target="_blank" class="btn btn-default" onclick="printDiv()"><i class="fas fa-print"></i> Print</button>                 
+                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                    <i class="fas fa-download"></i> Generate PDF
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+			
+			
+			
+			
+			
+			</div>
+		</div>
+	</div>
+</body>
+</html>

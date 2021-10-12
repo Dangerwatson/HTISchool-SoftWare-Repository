@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Gestion des Users</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active"> users</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid h-100">
+						<div class="row h-100 justify-content-center align-items-center">
+							<!-- left column -->
+							<div class="col-md-7">
+								<!-- jquery validation -->
+								
+								
+								 <!-- Horizontal Form -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Ajouter users</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form class="form-horizontal" th:action="@{/process_register2}" th:object="${user}" method="post">
+                <div class="card-body">
+                
+               <!-- alert -->
+									<div class="alert alert-success alert-dismissible fade show"  th:if="${success}" role="alert">
+                                         <strong>Enregistrement avec success</strong> 
+                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                         </button>
+                                     </div>
+                                    <!--  alert -->
+               
+				
+				<center>
+								  <div class="alert alert-danger" th:if="${exist}">
+							     <p class="text text-center">
+								User with this email already exist
+							</p>
+						</div>
+						
+						<div class="alert alert-success" th:if="${success}">
+							<p class="text text-center">
+								User register with successfully
+							</p>
+						</div>
+				</center>
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                      <input type="email" name="email" class="form-control" placeholder="email" required />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                      <input type="password" name="password" class="form-control" placeholder="password" required minlength="6" maxlength="10"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Firstname</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="firstName" class="form-control" placeholder="firstName" required minlength="2" maxlength="20"/>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Lastname</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="lastName" class="form-control" placeholder="lastName" required minlength="2" maxlength="20" />
+                    </div>
+                  </div>
+                  
+                  <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Role:</label>
+                    <div class="col-sm-10">
+                      <select th:field="*{roles}" required
+															class="form-control">
+															<option value="">-SELECT ROLE-</option>
+															<th:block th:each="role:${listRoles}">
+															<option th:value="${role.id}" th:text="${role.name}"></option>
+														</select>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Optional:</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" th:field="*{classe}" >
+													<option value="-SELECT-">-SELECT-</option>
+													<th:block th:each="p: ${listeClasse}">														 
+													<option th:text="${p.classeName}" th:value="${p.idClasse}"></option>
+											</select>
+                    </div>
+                  </div>
+                  
+                  
+                 
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>                 
+                </div>
+                <!-- /.card-footer -->
+              </form>
+            </div>
+            <!-- /.card -->
+			
+								
+							</div>
+							<!--/.col (left) -->
+							<!-- right column -->
+							<div class="col-md-6"></div>
+							<!--/.col (right) -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

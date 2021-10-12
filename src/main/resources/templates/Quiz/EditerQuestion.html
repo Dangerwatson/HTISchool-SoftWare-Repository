@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="FontEnd/layoutProfesseur">
+
+<body>
+<div layout:fragment="content11">
+
+<!--====== SLIDER PART START ======-->
+    
+    <section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url(frontend/images/page-banner-2.jpg)">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12"><br><br>
+                    <div class="page-banner-cont">
+                        <h2></h2>                        
+                    </div>  <!-- page banner cont -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+        
+               <form th:action="@{/logout}" method="post">
+					<div class="page-banner-cont">					
+						<h2>Welcome [[${#request.userPrincipal.principal.fullName}]]</h2>
+					</div>
+				</form>
+				
+				
+    </section>
+
+    <!--====== PAGE BANNER PART ENDS ======-->
+
+
+      <section id="blog-page" class="pt-90 pb-120 gray-bg">
+        <div class="container">
+           <div class="row">
+               <div class="col-lg-12">
+                   <div class="singel-blog mt-30">
+                       
+                       <div class="blog-cont">                          
+                           
+                           <form  th:action="@{/saveQuestion}" method="post" th:object="${question}">
+                        <div class="section-title">
+                            <h5>EDITER EVALUATION</h5>                            
+                        </div> <!-- section title -->
+                        <div class="main-form pt-8">                            
+                                <div class="row">
+                                    
+                                    <div class="col-md-12">
+                                        <div class="singel-form form-group"><label>Question:</label>
+                                             <input	type="text"  th:field="*{title}"  class="form-control" >                                           
+                                        </div> 
+                                    </div><br><br><br><br>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>Option A:</label>
+                                            <input type="text" th:field="*{optionA}"  class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>Option B:</label>
+                                            <input type="text" th:field="*{optionB}" class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>Option C:</label>
+                                            <input type="text" th:field="*{optionC}" class="form-control">                                            
+                                        </div> 
+                                    </div><br><br><br><br>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>Reponse :</label>
+                                            <input type="text"  th:field="*{ans}" class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="singel-form form-group"><label>chose:</label>
+                                            <input type="text"  th:field="*{chose}" class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    
+                                    <br><br><br><br><br><br>
+                                     <div class="col-lg-12 row h-100 justify-content-center align-items-center">
+                                                        <div class="form-singel">
+                                                           <button type="submit" class="main-btn">Suivant</button>
+                                                        </div>
+                                                    </div>
+                                   
+                                </div>                             
+                        </div> <!-- main form -->
+                        </form>
+                          
+                       </div>
+                       </div>                       
+                   </div> <!-- singel blog -->                  
+                   
+               </div>
+           </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+   
+    
+    
+</body>
+</html>

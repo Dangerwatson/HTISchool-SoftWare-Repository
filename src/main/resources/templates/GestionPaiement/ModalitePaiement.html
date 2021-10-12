@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Catégorie des matieres</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Catégorie des matieres</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Content Wrapper. Contains page content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<!-- Tables Data -->
+
+								<div class="card">
+									<div class="card-header">
+										<!-- <h3 class="card-title">DataTable with default features</h3> -->
+										<button type="button" class="btn btn-primary"
+											data-toggle="modal" data-target="#addModalMat">add new</button>
+										<!-- <a   class="btn btn-warning" data-toggle="modal" data-target="#editModal">edit</a> -->
+									</div>
+									<!-- /.card-header -->
+									<div class="card-body">
+										<table id="example1"
+											class="table table-bordered table-striped">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>TYPE PAIEMENT</th>
+													<th>MODALITE</th>
+													<th>COUT</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="modalite:${ModalitePaiement}">
+													<td th:text="${modalite.idPaiement}"></td>
+													<td th:text="${modalite.typePaiement.typeName}"></td>
+													<td th:text="${modalite.modalite}"></td>
+													<td th:text="${modalite.cout}"></td>
+													<td><a
+														th:href="@{/cate_matiere/getCatMat/(idPaiement=${modalite.idPaiement})}"
+														class="btn btn-info catMat"><i class="fas fa-eye"></i></a> <a
+														th:href="@{/cate_matiere/deleteCatMat(idPaiement=${modalite.idPaiement})}"
+														class="btn btn-danger" id="deleteButtonCat"><i class="fas fa-trash"></i></a></td>
+												</tr>
+
+											</tbody>
+											<tfoot>
+												<tr>
+													<th>ID</th>
+													<th>TYPE PAIEMENT</th>
+													<th>MODALITE</th>
+													<th>COUT</th>
+													<th>Action</th>
+												</tr>
+											</tfoot>
+										</table>
+
+									</div>
+									<!-- /.card-body -->
+								</div>
+								<!-- /.card -->
+
+
+										<!-- /.AddModal -->
+										<div class="modal fade" id="addModalMat" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+											<form th:action="@{/saveModalite}"
+												method="post" th:object="${addMod}">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Ajouter les modalités</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+
+															<div class="form-group">
+																<label for="recipient-name" class="col-form-label">CODE MODALITE:</label> 
+																<input type="text" class="form-control"
+																	name="codeModalite" id="codeModalite">
+															</div>
+															
+															
+															<div class="form-group">
+														<label>TYPE PAIEMENT</label> <select th:field="*{typePaiement}"
+															class="form-control">
+															<option value="-SELECT-">-SELECT-</option>
+															<option th:each="t: ${listTypePaiement}"
+																th:value="${t.idTypePaiement}"
+																th:text="${t.typeName}"></option>
+														</select>
+													</div>
+													
+														<div class="form-group">
+																<label for="recipient-name" class="col-form-label">MODALITE:</label> 
+																<input type="text" class="form-control"
+																	name="modalite" id="modalite">
+															</div>
+															
+																<div class="form-group">
+																<label for="recipient-name" class="col-form-label">COUT:</label> 
+																<input type="text" class="form-control"
+																	name="cout" id="cout">
+															</div>
+
+
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">Close</button>
+															<button type="submit" class="btn btn-primary">Save</button>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										<!-- /.addModal -->
+										
+										
+										<!-- /.UpdateModal -->
+										<div class="modal fade" id="updateCatMatModal" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+											<form th:action="@{/cate_matiere/UpdateCatMat}"
+												method="put" th:object="${categoryMatiere}">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Modifier
+																categorie</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+
+															<div class="form-group">
+																<label for="recipient-name" class="col-form-label">ID:</label> 
+																<input type="text" class="form-control"
+																	name="idCatMatiere" id="idCatMatEdit" readonly>
+															</div>
+															
+															<div class="form-group">
+																<label for="recipient-name" class="col-form-label">CATEGORIE CLASSE:</label> 
+																<input type="text" class="form-control"
+																	name="nomCatMatiere" id="nomCatMatEdit">
+															</div>
+
+
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">Close</button>
+															<button type="submit" class="btn btn-primary">Save</button>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										<!-- /.UpdateModal -->
+										
+										
+								<!-- /.Modal delete -->
+								<div class="modal fade" id="deleteCat">
+									<div class="modal-dialog">
+										<div class="modal-content bg-danger">
+											<div class="modal-header">
+												<h4 class="modal-title">
+													Requête en cours&hellip;<br>En attente de votre
+													confirmation
+												</h4>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<p>Voulez-vous vraiment supprimer?</p>
+											</div>
+											<div class="modal-footer justify-content-between">
+												<button class="btn btn-outline-light" data-dismiss="modal">Close</button>
+												<a href="" type="button" class="btn btn-outline-light"
+													id="delRef">Oui</a>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal-dialog -->
+								</div>
+								<!-- /.modal delete-->
+
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content-wrapper -->
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

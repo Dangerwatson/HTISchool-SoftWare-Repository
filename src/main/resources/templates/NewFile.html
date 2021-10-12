@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>
+									Paiement 
+								</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Gestion des paiements</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<!-- left column -->
+							<div class="col-md-12">
+								<!-- jquery validation -->
+				<!-- /.content-wrapper -->
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">
+							Ajouter Paiements
+						</h3>
+					</div>
+ <div class="card-body">
+        <div class="container">
+    <div class="form-group">  
+                     
+
+
+     <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column --><!-- 1ere partieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Entrer code de l'Eleve</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form th:action="@{/findByCode}" method="get">
+                <div class="card-body">
+                <div class="form-group row">
+                    <label  class="col-sm-3 col-form-label">CODE ELEVE</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-border"  name="codeElev" th:value="${codeEleves}"  placeholder="entrer le code">                     
+                    </div><button type="submit" class="btn btn-primary">Ok</button>
+                  </div> 
+                  <div class="alert alert-danger alert-dismissible fade show"  th:if="${failPaie}" role="alert">
+                                         <strong>La note ne doit pas etre superieur au coefficient choisi</strong> 
+                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                         </button>
+                                     </div> 
+                </div>
+                
+              </form>
+              <div class="text-danger" th:if="${exception}"
+						th:text="${exception.message}"></div>
+            </div>
+            <!-- /.card -->
+
+            <!-- 2eme partieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee -->
+            
+            <!-- /.card -->
+            <!-- Horizontal Form -->
+            <div class="card card-primary" th:if="${eleves}">
+              <div class="card-header">
+                <h3 class="card-title">Information Etudiants(e)</h3>
+              </div>              
+              <!-- form start -->              
+                <div class="card-body">
+                  <div class="form-group row">
+                   
+                  </div>
+                  
+                 <!-- title row -->
+              
+              <!-- info row -->
+				<div class="row invoice-info" >               
+                <div class="col-sm-4 invoice-col">                 
+                  <address>
+                   <strong> Code Eleves</strong><br>
+                   <strong> Nom Eleves</strong><br>
+                   <strong> Prenom</strong><br>
+                   <strong> Classe</strong><br>        
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  
+                  <address>
+                    <strong th:text="${eleves.codeEl}" ></strong><br>
+                     <strong th:text="${eleves.nom}"></strong><br>
+                    <strong th:text="${eleves.prenom}" ></strong><br>
+                    <strong th:text="${eleves.classe.classeName}" ></strong><br>
+                    <strong></strong><br>
+                    <strong></strong>                                         
+                  </address>
+                </div>
+                <div class="col-sm-4 invoice-col">                  
+                  <img class="img-circle" th:src="@{/getPhotoEl(idPerson=${eleves.idPerson})}" width="100" height="100"/>
+                </div>                                
+              </div>
+              
+					
+                </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          
+         <!--  3eme partieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee -->
+          <!--/.col (left) -->
+          <!-- right column -->
+          <div class="col-md-6">
+          <!-- alert -->
+									<div class="alert alert-success alert-dismissible fade show"  th:if="${success}" role="alert">
+                                         <strong>Paiement Valider avec success</strong> 
+                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                         </button>
+                                     </div>
+                                    <!--  alert -->
+            <!-- general form elements disabled -->
+            <div  th:if="${eleves}">
+            <div class="row">
+                 <div class="col-16 col-sm-16">
+            <div class="card card-primary card-tabs">
+              <div class="card-header p-0 pt-1">
+                <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                  <li class="pt-2 px-3"><h3 class="card-title">Paiement</h3></li>
+                  <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">N. Paiement</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Acquitter balance</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">Liste transaction</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content" id="custom-tabs-two-tabContent">
+                  <div class="tab-pane fade show active col-md-9" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                         
+                <form th:action="@{/savePaiement}" method="post">
+                  <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <input type="hidden" class="form-control" name="codePaiement" th:value="${genererCode1}" id="codeP" readonly>
+                      </div>
+                    </div>
+                    
+                      <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <input type="hidden" class="form-control"  th:value="${eleves.classe.classeName}"  readonly>
+                        <input type="hidden"   th:value="${eleves.classe.idClasse}" name="classe" class="form-control" readonly> 
+                      </div>
+                    </div>
+                    
+                     <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <input type="hidden" class="form-control" name="anneeAc" th:value="${annee}"  readonly>
+                      </div>
+                    </div>
+                  <div class="row">
+                  
+                    
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>NOM ELEVE</label>
+                        <input type="text"  th:value="|${eleves.nom} ${eleves.prenom}|" class="form-control" readonly>                        
+                        <input type="hidden"   th:value="${eleves.idPerson}" name="eleves" class="form-control" readonly>                        
+                      </div>
+                    </div>
+                    
+      <div class="col-sm-6">
+                     <div class="form-group">
+                        <label>MODALITE</label>
+                        <select name="modalite" required
+								class="form-control" id="modalite">
+								<option value="">-select mode de paiement-</option>
+								<option value="VERSEMENT OBLIGATOIRE">VERSEMENT OBLIGATOIRE</option>
+								<option value="VERSEMENT I">VERSEMENT I</option>
+								<option value="VERSEMENT II">VERSEMENT II</option>
+								<option value="VERSEMENT III">VERSEMENT III</option>
+								<option value="VERSEMENT IV">VERSEMENT IV</option>
+						</select>
+                      </div>
+                    </div> 
+                  </div>                  
+
+                  <div class="row">
+               
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>COUT</label>
+                        <input type="text" class="form-control" name="coutModalite"	id="cout" data-cout="" />
+                      </div>
+                    </div>
+                      <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>QUANTITE VERSE:</label>
+                        <input type="text" class="form-control" name="quantiteVerser" onkeyup="myFunctionPaiement(this.value);" id="qte" required pattern="^[0-9]+[,.]?[0-9]+$"/>
+                        <div class="invalid-feedback">
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  
+                   
+                  <div class="row">
+                 
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>BALANCE</label>
+                        <input type="text" id="bal" class="form-control" name="balance" readonly/>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                     <div class="col-sm-6" id="bourseOption">
+                      <div class="form-group">                      
+                        <div class="form-check" th:each="b:${bourse}">                                                                
+                          <input disabled class="form-check-input typeB" id="bourseCout" type="radio" name="typeBourse"   
+						                                     th:text="|${b.typeBourse}/${b.modalite}|" th:value="${b.typeBourse}" th:data-cout="${b.reduction}" />                                                     
+                        </div>                                              
+                      </div>  
+                  </div>                 
+                  </div>
+                   
+                   <!--  -->
+                   
+                    <div class="card-footer">
+                  <button type="submit" class="btn btn-info">Submit</button>                  
+                </div>
+                  
+                </form>
+             
+                  </div>
+                  <div class="tab-pane fade col-md-9" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+                                   <div class="card-body">
+                <form th:action="@{/saveBal}" method="post">  
+                 <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <input type="hidden" class="form-control" name="codePaiement" th:value="${genererCode1}" id="codeP" readonly>
+                      </div>
+                    </div>    
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>NOM ELEVE</label>
+                        <input type="text"  th:value="|${eleves.nom} ${eleves.prenom}|" class="form-control" readonly>                        
+                        <input type="hidden"   th:value="${eleves.idPerson}" name="eleves" class="form-control" readonly>                        
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>ANCIEN BALANCE</label>
+                        <input type="text" id="balAncien" th:value="${paiement.balance}" class="form-control"  readonly/>
+                      </div>
+                    </div>
+                    
+                    
+                    </div>  
+                    
+                     <div class="row">
+                        <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>QUANTITE VERSE:</label>
+                        <input type="text" class="form-control" name="quantiteVerser" onkeyup="myFunctionBal(this.value);" id="qte" required pattern="^[0-9]+[,.]?[0-9]+$"/>
+                        <div class="invalid-feedback">
+                        </div>
+                        
+                      </div>
+                    </div>
+                     
+                     <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>NEW BALANCE</label>
+                        <input type="text" id="balNouv" class="form-control" name="balance" readonly/>
+                      </div>
+                    </div>
+                     </div>  
+                   <!--  -->
+                   
+                    <div class="card-footer">
+                  <button type="submit" class="btn btn-info">Submit</button>                  
+                </div>
+                  </div>
+                </div>
+                 <div class="tab-pane fade " id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
+                    		<div class="row">
+							<div class="col-6">
+								<!-- Tables Data -->
+
+								<div class="card">
+                    	<div class="card-body">
+                    	<table id="example1"
+											class="table table-bordered table-striped ">
+											<thead>
+													<tr>
+													<th>Code paiement</th>
+													<th>ELEVES</th>
+													<th>Modalité/Balance</th>
+													<th>Cout</th>
+													<th>Quantité verser</th>
+													<th>BALANCE</th>
+													<th>Date</th>
+													<th>Classe</th>
+													<!-- <th>Année academique</th> -->
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="p:${lignePaiement}">
+													<td th:text="${p.codePaiement}"></td>
+													<td th:text="|${p.eleves.nom} ${p.eleves.prenom}|"></td>
+														<td th:text="${p.modalite}"></td>
+													<td th:text="${p.coutModalite}"></td>
+														<td th:text="${p.quantiteVerser}"></td>
+														<td th:text="${p.balance}"></td>
+															<td th:text="${p.datePaie}"></td>
+																<td th:text="${p.classe.classeName}"></td>
+																<!-- <td th:text="${p.anneeAc.anneeAc}"></td> -->
+													
+												</tr>
+
+											</tbody>
+											<tfoot>
+												<tr>
+												<th>Code paiement</th>
+													<th>ELEVES</th>
+													<th>Modalité/Balance</th>
+													<th>Cout</th>
+													<th>Quantité verser</th>
+													<th>BALANCE</th>
+													<th>Date</th>
+													<th>Classe</th>
+													<!-- <th>Année academique</th> -->
+													
+												</tr>
+											</tfoot>
+										</table>
+										</div>
+										</div>
+										</div>
+										</div>
+		
+                  </div>
+                
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+        </div>
+          </div> 
+        
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            <!-- general form elements disabled -->
+            
+            <!-- /.card -->
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->                         
+                              
+                                
+                          </div>  
+                       
+                </div> 
+</div>
+</div>
+
+
+
+				</div>
+			</div>
+			</div>
+			</div>
+			</section>
+			</div>
+		</div>
+	</div>
+	
+
+
+</body>
+</html>

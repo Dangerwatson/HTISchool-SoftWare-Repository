@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Gestion des inscriptions</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Gestion des
+										inscriptions</li>
+								</ol>
+							</div>
+						</div>
+						<!-- alert -->
+									<div class="alert alert-danger alert-dismissible fade show"  th:if="${exist}" role="alert">
+                                         <strong>email already exist</strong> 
+                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                         </button>
+                                     </div>
+                                    <!--  alert -->	
+					</div>
+					<!-- /.container-fluid -->
+				</section>			
+		
+		                             
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+			 <!-- /.row -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-default">
+              <div class="card-header">
+                <h3 class="card-title">bs-stepper</h3>
+              </div>
+              <div class="card-body p-0">
+                <div class="bs-stepper">
+                  <div class="bs-stepper-header" role="tablist">
+                    <!-- your steps here -->
+                    <div class="step" data-target="#logins-part">
+                      <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+                        <span class="bs-stepper-circle">1</span>
+                        <span class="bs-stepper-label">Informations personnelles</span>
+                      </button>
+                    </div>
+                     <div class="line"></div>
+                       <div class="step" data-target="#logins-part1">
+                      <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+                        <span class="bs-stepper-circle">2</span>
+                        <span class="bs-stepper-label">Informations parental</span>
+                      </button>
+                    </div>
+                    
+                    <div class="line"></div>
+                    <div class="step" data-target="#information-part">
+                      <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                        <span class="bs-stepper-circle">3</span>
+                        <span class="bs-stepper-label">Contact en cas d'urgence</span>
+                      </button>
+                    </div>							
+                  </div>
+                  <div class="bs-stepper-content">
+                    <!-- your steps content here -->
+                    <!--************************** form start ********************************-->
+				   <form th:action="@{/saveEleves}" method="post" th:object="${inscrit}"  enctype="multipart/form-data"  id="quickForm"  >
+                    <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                    <div class="row">
+					<div class="col-12 col-sm-4">
+                      	<div class="form-group">
+														<label for="exampleInputEmail1">CODE:</label> <input
+															type="text" name="codeEl" th:value="${genererCode1}"  class="form-control" placeholder="" readonly>
+													</div>
+                      </div>
+                      <div class="col-12 col-sm-4">
+                     <div class="form-group">
+														<label for="exampleInputEmail1">NOM</label> <input type="text"
+															 name="nom" class="form-control" id="nomEt" pattern="^[A-Za-z]+[ -]?[A-Za-z]+$" maxlength="20"  required 
+															 onkeyup="this.value=this.value.toUpperCase()">
+															 <div class="invalid-feedback"></div>
+													</div>
+                      </div>
+                      <div class="col-12 col-sm-4">
+                     <div class="form-group">
+														<label for="exampleInputEmail1">PRENOM</label> <input
+															type="text"  th:field="*{prenom}" id="pren" pattern="^[A-Za-z]+[ -]?[A-Za-z]+$" maxlength="40" class="form-control" required 
+															onkeyup="this.value=this.value.toUpperCase()">
+															<div class="invalid-feedback"></div>
+													</div>
+                       </div>
+                      </div>
+                      
+                      <div class="row">
+					
+                       <div class="col-12 col-sm-4">
+                     	<div class="form-group">
+														<label>SEXE</label> <select  th:field="*{sexe}" class="form-control" required>
+														<option value="">-SELECT-</option>
+															<option value="Masculin">Masculin</option>
+															<option value="Feminin">Feminin</option>
+														</select>
+													</div>
+                     </div>
+                     		                       <div class="col-12 col-sm-4">
+													<div class="form-group">
+														<label>DATE DE NAISSANCE</label>
+														<div class="input-group date" id="reservationdate"
+															data-target-input="nearest">
+															<input type="date"
+																class="form-control  datetimepicker-input"
+																data-target="#reservationdate" name="dateNaissance" id="datee" onchange="ss()" required/>
+															<div class="input-group-append"
+																data-target="#reservationdate"
+																data-toggle="datetimepicker">
+																<!-- <div class="input-group-text">
+																	<i class="fa fa-calendar"></i>
+																</div> -->
+															</div>
+														</div>
+													</div>
+													<!-- /.form-group -->
+												</div>
+													<div class="col-12 col-sm-4">
+													<div class="form-group">
+														<label for="exampleInputEmail1">LIEU DE NAISSANCE</label> <input type="text" th:field="*{lieuDeNaissance}" class="form-control" id="lieuDN"
+														 pattern="^[A-Z]+[ -]?[A-Z]+[ -]?[A-Z]+$" maxlength="35" required onkeyup="this.value=this.value.toUpperCase()">
+														 <div class="invalid-feedback"></div>
+													</div>
+													<!-- /.form-group -->
+												</div>
+                      </div>
+                      
+                      				<div class="row">
+												<!-- <div class="col-12 col-sm-4">
+													<div class="form-group">
+														<label>DATE DE BAPTEME</label>
+														<div class="input-group date" id="reservationdate1"
+															data-target-input="nearest">
+															<input type="date"
+																class="form-control datetimepicker-input"
+																data-target="#reservationdate1" th:field="*{dateBapteme}" required />
+															<div class="input-group-append"
+																data-target="#reservationdate1"
+																data-toggle="datetimepicker">
+																<div class="input-group-text">
+																	<i class="fa fa-calendar"></i>
+																</div>
+															</div>
+														</div>
+													</div>
+													/.form-group
+												</div> -->
+												
+														<div class="col-sm-4">
+													<!-- select -->
+													<div class="form-group">
+														<label>RELIGION</label> <select class="form-control" th:field="*{religion}" required>
+														<option value="-SELECT-">-SELECT-</option>
+															<option value="CATHOLIQUE">CATHOLIQUE</option>
+															<option value="BAPTISTE">BAPTISTE</option>
+															<option value="ADVENTISTE">ADVENTISTE</option>
+															<option value="PENCOTISTE">PENCOTISTE</option>
+															<option value="TEMOINS DE JEHOVAH">TEMOINS DE JEHOVAH</option>
+															<option value="AUTRES">AUTRES</option>
+														</select>
+													</div>
+												</div>
+												
+												<!-- /.col -->
+												<div class="col-12 col-sm-4">
+													<div class="form-group">
+														<label for="exampleInputEmail1">DERNIER
+															ETABLISSEMENT FREQUENTE</label> <input type="text" th:field="*{dernierEtablissement}"
+															class="form-control" onkeyup="this.value=this.value.toUpperCase()" id="exampleInputEmail1">
+													</div>
+													<!-- /.form-group -->
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group">
+														<label for="exampleInputEmail1">DERNIER CLASSE
+															FREQUENTE</label> <input type="text" th:field="*{dernierClasse}"
+															class="form-control" id="exampleInputEmail1" onkeyup="this.value=this.value.toUpperCase()">
+													</div>
+													<!-- /.form-group -->
+												</div>
+												<!-- /.col -->
+											</div>
+											
+													<div class="row">
+												<!-- /.col -->
+												
+															<div class="col-sm-4">
+													<!-- select -->
+													<div class="form-group">
+														<label>PIECE FOURNIES</label> <select class="form-control" th:field="*{pieceFournies}" required>
+														<option value="-SELECT-">-SELECT-</option>
+															<option value="CERTIFICAT DE NAISSANCE">CERTIFICAT DE NAISSANCE</option>
+															<option value="CERTIFICAT DE BAPTEME">CERTIFICAT DE BAPTEME</option>
+															<option value="EXTRAIT D'ARCHIVES">EXTRAIT D'ARCHIVES</option>
+															<option value="CARTE IDENTIFICATION">CARTE IDENTIFICATION</option>
+														</select>
+													</div>
+												</div>
+												<!-- /.col -->
+												<div class="col-12 col-sm-4">
+													<div class="form-group">
+														<label for="exampleInputEmail1">ADRESSE DE
+															L'ENFANT</label> <input type="text" th:field="*{adresse}" class="form-control"
+															id="exampleInputEmail1" onkeyup="this.value=this.value.toUpperCase()" required>
+													</div>
+													<!-- /.form-group -->
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group">
+														<label for="customFile">Custom File</label>
+														<label>PHOTOS</label>
+														<div class="custom-file">
+															<input type="file" class="custom-file-input"
+																id="customFile" name="photos"> <label
+																class="custom-file-label" for="customFile">Choose
+																file</label>
+														</div>
+													</div>
+													<!-- /.form-group -->
+												</div>
+												<!-- /.col -->
+											</div>
+															<div class="row">
+												<!-- /.col -->
+												
+
+												<div class="col-sm-4">
+													<!-- select -->
+													<div class="form-group">
+														<label>INSCRIT EN</label>														
+														 <select class="form-control" th:field="*{classe}"  onchange="ss()" required>
+														 <option value="-SELECT-">-SELECT-</option>
+														<th:block th:each="l: ${listeClasse}">														 
+																<option th:text="${l.classeName}" th:value="${l.idClasse}"  th:id="${l.idClasse}"
+																></option>
+														</select>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<!-- select -->
+													<div class="form-group">
+														<label>ANNEE ACADEMIQUE</label> <select class="form-control" th:field="*{anneeAcade}" required>
+															<th:block th:each="a: ${listeAnnee}">
+																<option th:text="${a.anneeAC}" th:value="${a.idAcad}"></option>
+														</select>
+													</div>
+												</div>
+										
+<script type="text/javascript">
+var id=0;
+function ss(){
+	id=$('#classe').val()
+	var d=new Date($('#datee').val());
+	contrainteDate(d.getFullYear());
+
+}
+
+
+	function contrainteDate(dat){
+			var d1=new Date();
+			var dat1=d1.getFullYear();
+	var result=dat1-dat;
+
+	if(result>1){
+if(result>=2 && result<=4){
+	
+
+			var t1=contrainteClasse($('#classe #'+id).text(),"3EME ANNEE");
+				var t2=contrainteClasse($('#classe #'+id).text(),"4EME ANNEE");
+			var t3=contrainteClasse($('#classe #'+id).text(),"5EME ANNEE");
+			var t4=contrainteClasse($('#classe #'+id).text(),"6EME ANNEE");
+					
+			var t5=contrainteClasse($('#classe #'+id).text(),"8EME ANNEE");
+			var t6=contrainteClasse($('#classe #'+id).text(),"9EME ANNEE");
+			var t7=contrainteClasse($('#classe #'+id).text(),"3EME");
+			var t8=contrainteClasse($('#classe #'+id).text(),"SECONDE");
+		var t9=contrainteClasse($('#classe #'+id).text(),"RETHO");
+		var t10=contrainteClasse($('#classe #'+id).text(),"PHILO");
+	var t11=contrainteClasse($('#classe #'+id).text(),"7EME ANNEE");
+		if(t1 || t2 || t3 || t4 || t5 || t6 || t7 || t8 || t9 || t10 || t11){
+			$.notify("classe incorrect");
+	$('#classe').val("1ERE et 2EME ANNEE");
+		}
+		}
+
+if(result>=4 && result<=8){
+			var t3=contrainteClasse($('#classe #'+id).text(),"5EME ANNEE");
+			var t4=contrainteClasse($('#classe #'+id).text(),"6EME ANNEE");
+					
+			var t5=contrainteClasse($('#classe #'+id).text(),"8EME ANNEE");
+			var t6=contrainteClasse($('#classe #'+id).text(),"9EME ANNEE");
+			var t7=contrainteClasse($('#classe #'+id).text(),"3EME");
+			var t8=contrainteClasse($('#classe #'+id).text(),"SECONDE");
+		var t9=contrainteClasse($('#classe #'+id).text(),"RETHO");
+		var t10=contrainteClasse($('#classe #'+id).text(),"PHILO");
+	var t11=contrainteClasse($('#classe #'+id).text(),"7EME ANNEE");
+	if( t3 || t4 || t5 || t6 || t7 || t8 || t9 || t10 || t11){
+		$.notify("classe incorrect");
+	$('#classe').val("3EME et 4EME ANNEE");
+		}
+			
+}
+
+if(result>=8 && result<=14){
+	var t11=contrainteClasse($('#classe #'+id).text(),"7EME ANNEE");
+			var t5=contrainteClasse($('#classe #'+id).text(),"8EME ANNEE");
+			var t6=contrainteClasse($('#classe #'+id).text(),"9EME ANNEE");
+			var t7=contrainteClasse($('#classe #'+id).text(),"3EME");
+			var t8=contrainteClasse($('#classe #'+id).text(),"SECONDE");
+		var t9=contrainteClasse($('#classe #'+id).text(),"RETHO");
+		var t10=contrainteClasse($('#classe #'+id).text(),"PHILO");
+	if(t5 || t6 || t7 || t8 || t9 || t10 || t11){
+		$.notify("classe incorrect");
+	$('#classe').val("5EME a 6EME ANNEE");
+		}
+			
+}
+		if(result<=15){
+	
+	var t12=contrainteClasse($('#classe #'+id).text(),"Aucun");
+	
+		}
+	}
+	else{
+		
+		$.notify('date incorrect');		
+		$('#datee').val("");
+	}
+
+	}
+
+function contrainteClasse(classe,classeInitial){
+	var test=false;
+	if(classeInitial!="Aucun"){
+	if(classe==classeInitial){
+		test=true;
+	}
+}
+	return test;
+}
+</script>
+	                                           <div class="col-12 col-sm-4">
+													<div class="form-group">
+														<label for="exampleInputEmail1">TELEPHONE</label> <input type="text" th:field="*{telephone}" class="form-control"
+															id="exampleInputEmail1">
+													</div>
+													<!-- /.form-group -->
+												</div>
+												<!-- /.col -->
+											</div>
+												<div class="row">
+												
+													
+													<div class="col-12 col-sm-4">
+														<div class="form-group">
+															<label for="exampleInputEmail1">EMAIL</label> <input
+																type="text" name="emailPersonne" class="form-control" pattern="^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$">																		
+														</div>
+														<!-- /.form-group -->
+													</div>
+													<div class="col-12 col-sm-4">													
+									                      <div class="form-group">
+									                      <label for="exampleInputEmail1">CROCHEZ TYPE DE BOURSE</label>                      
+									                        <div class="form-check" th:each="b: ${listeTypeBourse}">                                                                
+									                          <input  class="form-check-input typeB"  type="radio" name="typeDeBou"  required 
+															                                     th:text="${b.typeBourse}" th:value="${b.idType}" />                                                     
+									                        </div>                                              
+									                      </div> 
+												</div>
+												
+												<!-- /.col -->
+											</div>
+											
+											
+                      <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
+                    </div>
+                    
+                       <div id="logins-part1" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                  			                <!--  <div class="row">
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">NOM COMPLET DU
+																PERE</label> <input type="text" th:field="*{nomCPere}" class="form-control" pattern="^[A-Za-z]+[ -]?[A-Za-z]+$" maxlength="20"  
+																id="nomCP" onkeyup="this.value=this.value.toUpperCase()">
+																 <div class="invalid-feedback"></div>
+														</div>
+													</div>
+													/.col
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">TELEPHONE 1</label> <input
+																type="text"  class="form-control"
+																id="exampleInputEmail1" th:field="*{tel1P}">
+														</div>														
+													</div>
+													/.col
+												</div> -->
+												<!-- <div class="row">
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">TELEPHONE 2</label> <input
+																type="text" th:field="*{tel2P}" class="form-control"
+																id="exampleInputEmail1">
+														</div>
+														/.form-group
+													</div>
+													/.col
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">EMAIL</label> <input
+																type="email" th:field="*{emailP}" class="form-control" pattern="^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$"
+																id="exampleInputEmail1">
+														</div>
+														/.form-group
+													</div>
+													/.col
+												</div> -->
+												<!-- <div class="row">
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">NOM COMPLET DE LA
+																MERE</label> <input type="text" th:field="*{nomCMere}" class="form-control" pattern="^[A-Za-z]+[ -]?[A-Za-z]+$" maxlength="20"  
+																id="nomCM" onkeyup="this.value=this.value.toUpperCase()" >
+																 <div class="invalid-feedback"></div>
+														</div>
+														/.form-group
+													</div>
+													/.col
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">TELEPHONE 1</label> <input
+																type="text" th:field="*{tel1M}" class="form-control"
+																pattern="^[0-9]{4}[ -]?[0-9]{4}$" maxlength="9"  
+																id="exampleInputEmail1">
+																 <div class="invalid-feedback"></div>
+														</div>
+														/.form-group
+													</div>
+													/.col
+												</div> -->
+												
+												<!-- <div class="row">
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">TELEPHONE 2</label> <input
+																type="text" th:field="*{tel2M}" class="form-control"
+																pattern="^[0-9]{4}[ -]?[0-9]{4}$" maxlength="9"  
+																id="exampleInputEmail1">
+																 <div class="invalid-feedback"></div>
+														</div>
+													</div>
+													/.col
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">EMAIL</label> <input
+																type="text" th:field="*{emailM}" class="form-control" pattern="^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$" >
+																<div class="text text-danger" th:if="${#fields.hasErrors('emailM')}" th:errors="*{emailM}"></div>
+																 <div class="invalid-feedback"></div>
+														</div>
+														
+													</div>
+												</div> -->
+												
+												<div class="line"><center><h4>OU</h4></center></div>
+												
+												
+															
+														
+												
+												
+															<!--******************* ou personne responsable *******************-->
+												<!-- <div class="row">
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">NOM COMPLET DE LA
+																PERSONNE RESPONSABLE</label> <input type="text" th:field="*{nomCPersResp}" pattern="^[A-Za-z]+[ -]?[A-Za-z]+$" maxlength="20"  
+																class="form-control"  onkeyup="this.value=this.value.toUpperCase()" id="exampleInputEmail1"
+																>
+																 <div class="invalid-feedback"></div>
+														</div>
+														/.form-group
+													</div>
+													/.col
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">TELEPHONE 1</label> <input
+																type="text" th:field="*{tel1Pers}" class="form-control"
+																pattern="^[0-9]{4}[ -]?[0-9]{4}$" maxlength="9"  
+																id="exampleInputEmail1" >
+																 <div class="invalid-feedback"></div>
+														</div>
+														/.form-group
+													</div>
+													/.col
+												</div> -->
+
+												<!-- <div class="row">
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">TELEPHONE 2</label> <input
+																type="text" th:field="*{tel2Pers}" class="form-control"
+																pattern="^[0-9]{4}[ -]?[0-9]{4}$" maxlength="9"  
+																id="exampleInputEmail1">
+																 <div class="invalid-feedback"></div>
+														</div>
+														/.form-group
+													</div>
+													/.col
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">EMAIL</label> <input
+																type="text" th:field="*{emailPers}" class="form-control" pattern="^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$"
+																id="exampleInputEmail1">
+																 <div class="invalid-feedback"></div>
+														</div>
+														/.form-group
+													</div>
+													/.col
+												</div> -->
+                      <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
+                      <button type="button" class="btn btn-primary" onclick="stepper.previous()">Previous</button>
+                    </div>
+                    
+                    <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                     		<!-- PERSONNE A CONTACTER EN CAS D'URGENCE -->
+												<div class="row">
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">PERSONNE A
+																CONTACTER EN CAS D'URGENCE</label> <input type="text" th:field="*{contactPers}" pattern="^[A-Za-z]+[ -]?[A-Za-z]+$" maxlength="20"  required
+																class="form-control" onkeyup="this.value=this.value.toUpperCase()" id="PersUrg">
+																 <div class="invalid-feedback"></div>
+														</div>
+														<!-- /.form-group -->
+													</div>
+													<!-- /.col -->
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">LIEN PARENTAL</label> <input
+																type="text" th:field="*{lienParental}" class="form-control" pattern="^[A-Za-z]+[ -]?[A-Za-z]+$" maxlength="20"  required
+																id="LienP" onkeyup="this.value=this.value.toUpperCase()">
+																 <div class="invalid-feedback"></div>
+														</div>
+														<!-- /.form-group -->
+													</div>
+													<!-- /.col -->
+												</div>
+
+												<div class="row">
+													<div class="col-12 col-sm-6">	
+														<div class="form-group">
+                                                              <label>TELEPHONE 1:</label>
+                                                                 <div class="input-group">
+                                                                     <div class="input-group-prepend">
+                                                                        <span class="input-group-text"><i >+(509)</i></span>
+                                                                     </div>
+                                                                          <input
+																type="text" th:field="*{tel1ConPers}" class="form-control"
+																id="tel1" pattern="^[0-9]{4}[ -]?[0-9]{4}$" maxlength="9"  required>
+					                                                     <div class="invalid-feedback"></div>
+                                                                  </div>
+                                                                 <!-- /.input group -->
+                                                              </div>
+														<!-- /.form-group -->
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label for="exampleInputEmail1">TELEPHONE 2</label> <input
+																type="text" name="tel2ConPers" class="form-control"
+																id="exampleInputEmail1">
+																 <div class="invalid-feedback"></div>
+														</div>
+														<!-- /.form-group -->
+													</div>
+												</div>
+                      <button type="button" class="btn btn-primary" onclick="stepper.previous()">Previous</button>
+                      
+                    </div>
+                    <div class="card-footer">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                Visit <a href="https://github.com/Johann-S/bs-stepper/#how-to-use-it">bs-stepper documentation</a> for more examples and information about the plugin.
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+			</div>
+		</div>
+	</div>
+	
+
+</body>
+</html>

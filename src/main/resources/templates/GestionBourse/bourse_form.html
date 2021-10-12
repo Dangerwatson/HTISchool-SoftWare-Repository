@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>GESTION DES BOURES</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">BOURSE</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">LISTE DES CLASSES</h3>
+
+										<div class="card-tools">
+											<button type="button" class="btn btn-tool"
+												data-card-widget="collapse">
+												<i class="fas fa-minus"></i>
+											</button>
+										</div>
+									</div>
+									<div class="card-body p-0">
+										<ul class="nav nav-pills flex-column">
+											<li class="nav-item" th:each="c: ${listeClasse}"><a
+												class="nav-link" th:value="${c.idClasse}"
+												th:text="${c.classeName}"
+												th:href="@{/findElevesByClasse(idClasse=${c.idClasse})}">
+													<i class=" nav-link fas fa-inbox"></i> <span
+													class="badge bg-primary float-right"></span>
+											</a></li>
+
+										</ul>
+									</div>
+									<!-- /.card-body -->
+
+								</div>
+
+							</div>
+							<!-- left column -->
+							<div class="col-md-9">
+								<!-- jquery validation -->
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title">
+											GESTIOBN BOURSE <small>FORMULAIRE</small>
+										</h3>
+									</div>
+									<!-- /.card-header -->
+									<!-- form start -->
+									<form th:action="@{/save_boursier}" method="post"
+										th:object="${bourse}">
+										<div class="card-body" th:if="${listEleves}">
+
+											
+												<div class="form-group">
+														<label for="exampleInputEmail1">CODE BOURSE</label> <input
+															type="text"  class="form-control"
+															name="codeBourse" th:value="${genererCode1}" readonly>
+													</div>
+											
+											<div class="form-group">
+												<label>TYPE BOURSE</label> <select th:field="*{typeBourse}"
+													class="form-control">
+													<option value="-SELECT-">-SELECT-</option>
+												<option value="BOURSE COMPLET">BOURSE COMPLET</option>
+												<option value="DEMI BOURSE">DEMI BOURSE</option>
+												<option value="QUART BOURSE">QUART BOURSE</option>
+												</select>
+											</div>
+											<!-- /.col -->
+
+
+
+
+											<div class="form-group">
+												<label>ELEVES</label> <select th:field="*{eleves}"
+													class="form-control">
+													<option value="-SELECT-">-SELECT-</option>
+													<option th:each="el: ${listEleves}"
+														th:value="${el.idPerson}"
+														th:text="|${el.nom} ${el.prenom}|"></option>
+												</select>
+											</div>
+											
+											   <div class="form-group">
+                        <label>MODALITE</label>
+                        <select name="modalite" required
+								class="form-control" id="modalite">
+								<option value="">-select mode de paiement-</option>
+								<option value="VERSEMENT OBLIGATOIRE">VERSEMENT OBLIGATOIRE</option>
+								<option value="VERSEMENT I">VERSEMENT I</option>
+								<option value="VERSEMENT II">VERSEMENT II</option>
+								<option value="VERSEMENT III">VERSEMENT III</option>
+								<option value="VERSEMENT IV">VERSEMENT IV</option>
+						</select>
+                      </div>
+											
+												<div class="form-group">
+													<label>COUT MODALITE</label> <input type="text" class="form-control"
+														 id="coutModalite" name="coutModalite" data-cout="" />
+												</div>
+											
+											<!-- /.col -->
+											<div class="form-group">
+												<label for="recipient-name" class="col-form-label">POURCENTAGE
+													DE REDUCTION</label>
+												<div class="input-group">
+													<input type="text" class="form-control" onkeyup="myFunction(this.value);" id="pourcentage">
+													<div class="input-group-prepend">
+														<span class="input-group-text"><i>%</i></span>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="recipient-name" class="col-form-label">COUT
+														DU BOURSE</label> <input type="text" class="form-control"
+														name="reduction" id="bourse">
+												</div>
+
+											</div>
+
+										</div>
+										<!-- /.card-body -->
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+								<!-- /.card -->
+							</div>
+							<!--/.col (left) -->
+							<!-- right column -->
+							<div class="col-md-6"></div>
+							<!--/.col (right) -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+	
+	</script>
+</body>
+</html>

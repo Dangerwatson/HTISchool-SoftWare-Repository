@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>LISTE PRESENCE PROFESSEURS</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">LISTE PRESENCE PROFESSEURS</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+													
+							
+							<!-- /.col -->
+ <div class="col-md-12">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">LISTE PROFESSEURS PRESENCE/ABSENCE</h3> 
+                <!-- card-tools float-left -->
+                <div class="col-md-2 ml-auto mr-auto">
+                <div class="input-group input-group-sm">                
+                                    
+                </div>             
+              </div> 
+                 <div class="float-right">
+                
+              </div>              
+              </div>
+              
+             
+                   <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            
+            <div class="card">
+              <!-- <div class="card-header">
+                <h3 class="card-title">Date:</h3>
+              </div> -->
+              <!-- /.card-header -->
+              <div class="card-body"> 
+                <table id="listePres" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>DATE</th>
+                    <th>CODE PROFESSEUR(s)</th>
+                    <th>NOM</th>
+                    <th>PRENOM</th>
+                    <th>STATUT</th>
+                    <th>ACTION</th>                    
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each="pre:${presencePr}">
+                   <td th:text="${pre.dateAppel}"></td>
+                   <td th:text="${pre.professeur.codeProf}"></td>
+                   <td th:text="${pre.professeur.nom}"></td>
+                   <td th:text="${pre.professeur.prenom}"></td>
+                  <td th:text="${pre.presAbsP}"></td>
+                  
+                    
+                   </tr>                 
+                  
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>DATE</th>
+                    <th>CODE PROFESSEUR(s)</th>
+                    <th>NOM</th>
+                    <th>PRENOM</th>
+                    <th>STATUT</th>
+                    <th>ACTION</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            
+            <!-- /.UpdateModal -->
+										
+										
+										
+		<div class="modal fade" id="updatePresenceP" >
+		<form th:action="@{/savePresenceP}" method="put" th:object="${prof}">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Small Modal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                                                           <div class="form-group">
+																<label >ID:</label> 
+																<input type="text" class="form-control"
+																	name="idPresence" id="idPresenceEdit" readonly>
+															</div>
+															
+															<div class="form-group">
+																<label >NOM:</label> 
+																<input type="text" class="form-control"
+																	name="" id="">
+															</div>
+															
+															<div class="form-group">
+																<label >PRENOM:</label> 
+																<input type="text" class="form-control"
+																	name="" id="">
+															</div>
+															
+															<div class="form-group">
+																<input type="checkbox"  id="check1" class="checkPres" />                      
+                                                                 <input type="text"   name="presAbsP"  class="presValue  col-2"   readonly/>
+															</div>
+								</div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        </form>
+      </div>
+										<!-- /.UpdateModal -->
+            
+            
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+              
+              
+              
+              
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+          </div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

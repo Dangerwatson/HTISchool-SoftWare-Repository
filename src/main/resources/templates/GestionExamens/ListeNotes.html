@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>LISTE NOTES</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">LISTE NOTES</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+					     <form th:action="@{/findNoteByClasse}" method="get" id="myForm">
+               
+         <!--  <input type="text" th:value="${clsN.classeName}"  name="classe"  class="form-control col-sm-2" readonly > -->
+           <!--  control et periode -->            
+                <div class="row ">               
+		                <div class="col-sm-3">
+		                      <!-- select frequence -->
+		                      <div class="form-group">
+		                        <label>CONTROLE/MENSUEL:</label>
+                        <select class="form-control" name="frequence" >                                          
+										<optgroup style="color:red" label="MENSUEL">
+										                    <option style="color:black" value="">SELECTIONNER</option>														    
+															<option style="color:black" value="Janvier">Janvier</option>
+															<option style="color:black" value="Fevrier">Fevrier</option>
+															<option style="color:black" value="Mars">Mars</option>
+															<option style="color:black" value="Avril">Avril</option>
+															<option style="color:black" value="Mai">Mai</option>
+															<option style="color:black" value="Juin">Juin</option>
+															<option style="color:black" value="Juillet">Juillet</option>
+															<option style="color:black" value="Aout">Aout</option>
+															<option style="color:black" value="Septembre">Septembre</option>
+															<option style="color:black" value="Octobre">Octobre</option>
+															<option style="color:black" value="Novembre">Novembre</option>
+															<option style="color:black" value="Decembre">Decembre</option>
+										</optgroup>	
+										<optgroup style="color:red" label="CONTROLE">														    
+															<option style="color:black" value="1er Controle">1er Controle</option>
+															<option style="color:black" value="2eme Controle">2eme Controle</option>
+															<option style="color:black" value="3eme Controle">3eme Controle</option>
+															<option style="color:black" value="4eme Controle">4eme Controle"</option>
+										</optgroup>														
+						</select>
+		                      </div>
+		                    </div>
+		                    
+				              <div class="col-sm-3">
+		                      <!-- select annee academique-->
+		                      <div class="form-group">
+		                        <label>ANNEE ACADEMIQUE</label>
+		                        <select class="custom-select" name="anneeAC" onchange=document.getElementById(myForm).submit()>
+		                          <option value="">-SELECT-</option>
+								  <option th:each="anne:${listAnnee}"  th:text="${anne.anneeAC}" th:value="${anne.idAcad}"></option>
+		                        </select>
+		                      </div>
+		                    </div> 
+		                    
+		                     <div class="col-sm-3">
+		                      <!-- select annee academique-->
+		                      <div class="form-group">
+		                        <label>CLASSE</label>
+		                        <select class="custom-select" name="classeName" onchange=document.getElementById(myForm).submit()>
+		                          <option value="">-SELECT-</option>
+								  <option th:each="cl:${listeClasse}"  th:text="${cl.classeName}" th:value="${cl.idClasse}"></option>
+		                        </select>
+		                      </div>
+		                    </div>
+		                    <div ><br>
+								 <button type="submit" class="btn btn-primary">OK</button>
+							</div>             
+                 </div>
+                
+                 </form>
+				</section>
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+				<!-- 			<div class="col-md-2.5">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">LISTE DES CLASSES</h3>
+
+										<div class="card-tools">
+											<button type="button" class="btn btn-tool"
+												data-card-widget="collapse">
+												<i class="fas fa-minus"></i>
+											</button>
+										</div>
+									</div>
+									<div class="card-body p-0" >
+										<ul class="nav nav-pills flex-column" >
+											<li class="nav-item" th:each="c: ${listeClasse}"><a class="nav-link"
+												 th:value="${c.idClasse}"
+												th:text="${c.classeName}" th:href="@{/findNoteByClasse(idClasse=${c.idClasse})}"> <i class=" nav-link fas fa-inbox"></i>
+											 <span class="badge bg-primary float-right"></span>
+											</a></li>
+
+										</ul>
+									</div>
+									
+									
+								</div>
+								
+							</div> -->
+							
+ <div class="col-md-12">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">LISTE NOTES DES ELEVES</h3> 
+                <!-- card-tools float-left -->
+                <div class="col-md-2 ml-auto mr-auto">
+                <div class="input-group input-group-sm">                
+                  <!-- <input type="text" th:object="${cls}"  th:field="*{classeName}"  class="form-control" readonly > -->
+                </div>             
+              </div> 
+                             
+              </div>
+              
+             
+            
+                   <!-- Main content -->
+                   <div th:if="${listN}">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+       
+               
+            <!--fin  control et periode -->
+            
+            <div class="card">
+              <!-- <div class="card-header">
+                <h3 class="card-title">Date:</h3>
+              </div> -->
+              <!-- /.card-header -->
+           <div class="col-12 table-responsive">
+              <div  class="card-body"> 
+                <table  class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                   <!--  <th rowspan="1" class="text-center">ANNEE AC</th>  -->                
+                    <th rowspan="1" class="text-center">CODE ELEVE(s)</th>                   
+                    <th rowspan="1" class="text-center">NOM</th>
+                    <th rowspan="1" class="text-center">PRENOM</th>
+                    <th  id="thMatiere" colspan="2" class="text-center table-active">MATIERE</th>
+                    <th rowspan="1" class="text-center">TOTAL</th>
+                     <th rowspan="1" class="text-center">MOYENNE</th>
+                     <th>Mention</th>
+                     <th>Action</th>
+                   </tr>                   
+                  
+                  <tr>
+                    <th></th> 
+                   <!--  <th></th> -->
+                    <th></th>                  
+                    <th></th>
+                    
+                    <th class="matiere" th:each="n:${list_matiere}" th:data-idMat="${n.idMatiere}" th:data-coe="${n.coefficient}">[[${n.nomMatiere}]]/[[${n.coefficient}]]
+                     <input type="hidden"  th:value="${n.idMatiere}" name="matiere"   class="form-control" > </th>
+                     <th></th>
+                      <th></th>
+                      <th></th>
+                                                         
+                  </tr>
+                  </thead>
+                  <tbody>
+                  
+                 
+                  
+                  <tr th:each="n:${list_personne}" th:data-idP="${n.idPerson}" th:id="${n.idPerson}" class="t">
+       <!--           <td><input type="checkbox" class="checkUpdate" th:data-id="${n.idRelve}" th:data-name="${n.note}"/><input type="hidden" class="idRelve" name="idRelve" th:value="${n.idRelve}"/></td>  -->
+                 <!--   -->                 
+                  <td th:text="${n.codeEl}" ></td>
+                  <td th:text="${n.nom}"></td>
+                   <td class="tdPrenom" th:text="${n.prenom}"></td> 
+                     
+                  	
+                    <td th:each="n:${listN}" th:data-id="${n.eleves.idPerson}" th:data-idM="${n.matiere.idMatiere}" name="note" class="note" th:data-note="${n.note}" th:class="${n.eleves.idPerson}"><span th:data-td="${n.eleves.idPerson}" th:class="${n.eleves.idPerson}" th:data-note="${n.note}">[[${n.note}]]</span> 
+                    
+                    
+                    <input type="hidden"  th:value="${n.idRelve}"  name="releveNote"  class="form-control" ></td> 
+                     
+                                                      
+                     <td class="total"><input class="border-0 bg-transparent" size="5" readonly name="total"/></td>                     
+                     <td class="moy"><input class="border-0 bg-transparent" size="2" readonly name="moyenne"/></td>
+                     <td class="mention"><input class="border-0 bg-transparent" size="5" readonly name="mention" value="inconnu"/></td>
+                     <td ><a th:href="@{/genererReleve(idPerson=${n.idPerson})}"
+														
+														class="btn btn-info"><i class="fas fa-print"></i></a></td>
+                    <!--  insertion personne -->
+                      <input type="hidden"  th:value="${n.idPerson}"  name="idPerson"  class="form-control" >  
+                     <!-- <input type="hidden"  th:value="${n.AnneeAcade.idAcad}"  name="anneeAcad"  class="form-control" >  --> 
+                                    
+                   </tr>
+                  </tbody>
+                  <!-- <tfoot>
+                  
+                  </tfoot> -->
+                </table>               
+                
+              </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    
+    <!-- /.content -->
+              </div>
+              
+              
+              
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+          </div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

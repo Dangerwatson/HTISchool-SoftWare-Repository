@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>LISTE HORAIRE PAR CLASSE</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">LISTE HORAIRE PAR CLASSE</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">LISTE HORAIRE PAR CLASSE</h3>
+
+										<div class="card-tools">
+											<button type="button" class="btn btn-tool"
+												data-card-widget="collapse">
+												<i class="fas fa-minus"></i>
+											</button>
+										</div>
+									</div>
+									<div class="card-body p-0" >
+										<ul class="nav nav-pills flex-column" >
+											<li class="nav-item" th:each="c: ${listeClasse}"><a class="nav-link"
+												 th:value="${c.idClasse}"
+												th:text="${c.classeName}" th:href="@{/findHoraireByClasse(idClasse=${c.idClasse})}"> <i class=" nav-link fas fa-inbox"></i>
+											 <span class="badge bg-primary float-right"></span>
+											</a></li>
+
+										</ul>
+									</div>
+									
+									
+								</div>
+								
+							</div>
+							
+ <div class="col-md-9">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">LISTE HORAIRE PAR CLASSE</h3> 
+                <!-- card-tools float-left -->
+                <div class="col-md-2 ml-auto mr-auto">
+                <div class="input-group input-group-sm">                
+                  <input type="text" th:object="${emplo}"  th:field="*{classeName}"  class="form-control" readonly >                  
+                </div>             
+              </div> 
+                 <div class="float-right">
+                
+              </div>              
+              </div>
+              
+               <form >
+               <div th:if="${empl}">
+           
+                   <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            
+            <div class="card">
+              <!-- <div class="card-header">
+                <h3 class="card-title">Date:</h3>
+              </div> -->
+              <!-- /.card-header -->
+              <div class="card-body"> 
+                <table id="listePres" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>HEURE</th>
+                    <th>LUNDI</th>
+                    <th>MARDI</th>
+                    <th>MERCREDI</th>
+                    <th>JEUDI</th> 
+                    <th>VENDREDI</th>                   
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each="em:${empl}">
+                  
+                  <td th:text="|${em.debut}-${em.fin}|"></td>
+                   <td th:text="${em.jour1}"></td>                    
+                    <td th:text="${em.jour2}"></td>
+                    <td th:text="${em.jour3}"></td>
+                    <td th:text="${em.jour4}"></td>
+                    <td th:text="${em.jour5}"></td>
+                   </tr>                 
+                  
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                   <th>HEURE</th>
+                    <th>LUNDI</th>
+                    <th>MARDI</th>
+                    <th>MERCREDI</th>
+                    <th>JEUDI</th> 
+                    <th>VENDREDI</th>                    
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+              </div>
+              
+              </form>
+              
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+          </div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

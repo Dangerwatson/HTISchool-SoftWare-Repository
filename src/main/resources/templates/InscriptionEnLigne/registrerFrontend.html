@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="FontEnd/layout1">
+	
+	<head>
+      <!--====== Required meta tags ======-->
+    <meta charset="utf-8">
+	</head>
+
+<body>
+<div layout:fragment="content11">
+
+<!--====== SLIDER PART START ======-->
+    
+    <section id="page-banner" class="pt-105 pb-130 bg_cover" data-overlay="3" style="background-image: url(frontend/images/page-banner-4.jpg)">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-banner-cont">
+                        
+                        
+                    </div> <br><br><br><br> <!-- page banner cont -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== PAGE BANNER PART ENDS ======-->
+
+
+     <!--====== CATEGORY PART START ======-->
+    
+    <section id="category-2-part">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="category-2-items pt-10">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="singel-items text-center mt-30">
+                                    
+                                    <div class="items-cont"><br><br><br><br><br><br><br>
+                                        <a href="#">
+                                            <h5 style="color:#07294D">NB: Dès que vous avez terminé avec la création de votre compte,<br> Veuillez bien memoriser votre email et votre mot de passe pour pouvoir se connecter sur la plateforme à l'heure voulue.</h5>
+                                            <span>24 courses</span>
+                                        </a>
+                                    </div>
+                                </div> <!-- singel items -->
+                            </div>
+                            
+                            
+                            
+                            
+                            
+                        </div> <!-- row -->
+                    </div> <!-- category -->
+                </div>
+                <div class="col-lg-5 offset-lg-1">
+                    <div class="category-form">
+                        <div class="form-title text-center">
+                            <h3>Register </h3>
+                            <span>a new membership </span>
+                        </div>
+                        <div class="alert alert-danger alert-dismissible fade show"  th:if="${exist}" role="alert">
+                                         <strong>User with this email already exist</strong> 
+                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                         </button>
+                         </div>                       
+		
+                        <div class="main-form">
+                            <form th:action="@{/processFrontend}" th:object="${user}" method="post">
+                                <div class="singel-form">
+                                    <input type="email" th:field="*{email}" placeholder="Email">
+                                    <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                </div>
+                                <div class="singel-form">
+                                    <input type="password" th:field="*{password}" placeholder="Password" required minlength="6" maxlength="10">
+                                </div>
+                                <div class="singel-form">
+                                    <input type="text" th:field="*{firstName}" placeholder="firstName" required minlength="3" maxlength="20">
+                                </div>
+                                <div class="singel-form">
+                                    <input type="text" th:field="*{lastName}" placeholder="lastName" required minlength="3" maxlength="20">
+                                </div>
+                                
+                                <div class="row h-100 justify-content-center align-items-center">
+								    <div class="col-12  col-sm-6">
+                                        <div class="singel-form">
+                                              <button class="main-btn" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                     
+                                </div>
+                                 
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section><br><br><br>
+    
+    <!--====== CATEGORY PART ENDS ======-->
+    
+ </div>   
+</body>
+</html>

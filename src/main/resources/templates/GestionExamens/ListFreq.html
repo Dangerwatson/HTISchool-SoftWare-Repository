@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>LES FREQUENCES D'EXAMEN</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">LES FREQUENCES D'EXAMEN</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Content Wrapper. Contains page content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<!-- Tables Data -->
+
+								<div class="card">
+									<div class="card-header">
+										<!-- <h3 class="card-title">DataTable with default features</h3> -->
+										<button type="button" class="btn btn-primary"
+											data-toggle="modal" data-target="#addModalMat">add new</button>
+										<!-- <a   class="btn btn-warning" data-toggle="modal" data-target="#editModal">edit</a> -->
+									</div>
+									<!-- /.card-header -->
+									<div class="card-body">
+										<table id="example1"
+											class="table table-bordered table-striped">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>CONTROLE/TRIMESTRE</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="f:${listFrequence}">
+													<td th:text="${f.idFreq}"></td>
+													<td th:text="${f.frequence}"></td>
+													<td>
+                                        <a th:href="@{/editeFreq(idFreq=${f.idFreq})}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                         <a th:href="@{/deleteFreq(idFreq=${f.idFreq})}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                         
+                                    </td>
+												</tr>
+
+											</tbody>
+											<tfoot>
+												<tr>
+													<th>ID</th>
+													<th>CONTROLE</th>
+													<th>Action</th>
+												</tr>
+											</tfoot>
+										</table>
+
+									</div>
+									<!-- /.card-body -->
+								</div>
+								<!-- /.card -->
+
+
+										<!-- /.AddModal -->
+										<div class="modal fade" id="addModalMat" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+											<form th:action="@{saveFrequence}"
+												method="post" th:object="${frequenceExamen}">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">FREQUENCE D'EXAMEN</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+
+															<div class="form-group">
+																<label for="recipient-name" class="col-form-label">CONTROLE:</label> 
+																<input type="text" class="form-control"
+																	name=frequence id="frequence">
+															</div>
+
+
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">Close</button>
+															<button type="submit" class="btn btn-primary">Save</button>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										<!-- /.addModal -->
+								
+
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content-wrapper -->
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

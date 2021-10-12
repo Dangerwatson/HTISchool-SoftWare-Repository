@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Gestion des cours</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active"> Cour</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+				
+				
+				
+				<!-- Content Wrapper. Contains page content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<!-- Tables Data -->
+
+								<div class="card">
+									<div class="card-header">
+										
+	<!-- <h3>Upload Multiple Files</h3>
+     <form id="uploadFiles" name="uploadFiles" method="post" th:action=@{/uploadFiles} encType="multipart/form-data">
+     <button type="button" class="btn btn-primary">
+       <input type="file" name="files" multiple required /></button>
+       <button type="submit">Submit</button>
+     </form> -->
+     
+     <section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<!-- left column -->
+							<div class="col-md-12">
+								<!-- jquery validation -->
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title">Ajouter Cours</h3>
+									</div>
+									<!-- /.card-header -->
+									<!--************************** form start ********************************-->
+									<form id="uploadFiles" name="uploadFiles" method="post" th:action=@{/uploadFiles} encType="multipart/form-data" >
+											<div class="card-body">
+											<div class="row">
+												<div class="col-12 col-sm-6">
+													<div class="form-group">
+														<label for="exampleInputEmail1">Upload Multiple Files</label> <br>
+														<input type="file" name="files" multiple required accept="video/*" />
+														
+													</div>
+													<!-- /.form-group -->
+												</div>												
+											</div>
+										</div>
+
+										<!-- /.card-body -->
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+								<!-- /.card -->
+							</div>							
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+									</div><br>	
+									<!-- /.card-header -->
+									<div class="card-body">									
+										<table id="example1"
+											class="table table-bordered table-striped">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Name</th>
+													<th>Download Link</th>
+													<th>Date Publication</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="doc:${docs}">
+													 <td th:text="${doc.Id}" />
+                                                     <td th:text="${doc.docName}"/>
+                                                     <td><a th:href="@{'/downloadFile/'+${doc.id}}">Download</a></td>
+                                                     <td th:text="${doc.datePublication}"/>
+													<td><a
+														th:href="@{/cate_classes/getCategorie/(id=${doc.id})}"
+														class="btn btn-info cat"><i class="fas fa-edit"></i></a> <a
+														th:href="@{/deleteDoc(id=${doc.id})}"
+														class="btn btn-danger" id="deleteButtonCat"><i class="fas fa-trash"></i></a></td>
+												</tr>
+
+											</tbody>
+											<tfoot>
+												<tr>
+													<th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Download Link</th>
+                                                    <th>Date Publication</th>
+                                                    <th>Action</th>
+												</tr>
+											</tfoot>
+										</table>
+
+									</div>
+									<!-- /.card-body -->
+								</div>
+								<!-- /.card -->
+
+
+										
+										
+										
+										
+								<!-- /.Modal delete -->						
+								
+								
+								<div class="modal" tabindex="-1" role="dialog" id="deleteCat">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Voulez-vous vraiment supprimer?</p>
+      </div>
+      <div class="modal-footer">
+        <a href="" class="btn btn-primary" id="delRef">Yes,Delete</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+								<!-- /.modal delete-->
+
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content-wrapper -->				
+   
+			</div>
+		</div>
+	</div>
+</body>
+</html>

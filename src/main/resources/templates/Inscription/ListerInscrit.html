@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+<div layout:fragment="content">
+<div class="wrapper">
+
+ <div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Liste des inscrit</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Liste des élèves</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+<!-- Content Wrapper. Contains page content -->
+ <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12"> 
+          <!-- Tables Data -->
+          
+           <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">DataTable with default features</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+              <!-- alert -->
+									<div class="alert alert-success alert-dismissible fade show"  th:if="${success}" role="alert">
+                                         <strong>Enregistrement avec success</strong> 
+                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                         </button>
+                                     </div>
+                                    <!--  alert -->
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                     <th>PHOTOS</th>
+                    <th>CODE ELEVES</th>
+                    <th>NOM</th>
+                    <th>PRENOM</th>
+                    <th>SEXE</th>
+                    <th>DATE NAIS.</th>
+                    <th>LIEU NAIS.</th>                      
+                    <th>DERNIER ETAB.</th>
+                    <th>RELIGION</th>
+                    <th>DERNIER CLASSE FREQ.</th>
+                     <th>TEL</th>
+                    <th>PIECE FOURN.</th>
+                      <th>ADRESSE</th>
+                    <th>CLASSE</th>
+                    <th>ANNEE ACA.</th> 
+                    <!-- <th>TYPE BOURSE</th> -->                   
+                     <th>ACTION</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                      <tr th:each="el:${listEleves}">
+									<td th:text="${el.idPerson}"></td>
+									<td>
+									     <img class="img-circle" th:src="@{/getPhotoEl(idPerson=${el.idPerson})}" width="50" height="50"/>
+									</td>
+									<td th:text="${el.codeEl}"></td>
+									<td th:text="${el.nom}"></td>
+									<td th:text="${el.prenom}"></td>
+									<td th:text="${el.sexe}"></td>
+									<td th:text="${el.dateNaissance}"></td>
+									<td th:text="${el.lieuDeNaissance}"></td>
+									<td th:text="${el.dernierEtablissement}"></td>
+									<td th:text="${el.religion}"></td>
+									<td th:text="${el.dernierClasse}"></td>
+									<td th:text="${el.telephone}"></td>
+									<td th:text="${el.pieceFournies}"></td>
+									<td th:text="${el.adresse}"></td>
+									<td th:text="${el.classe.classeName}"></td>
+									<td th:text="${el.AnneeAcade.anneeAC}"></td>
+									<!-- <td th:text="${el.typeDeBou.typeBourse}"></td> -->
+									
+									<td>
+                                        <a th:href="@{/editeEleves(idPerson=${el.idPerson})}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                         <a th:href="@{/deleteEleves(idPerson=${el.idPerson})}" class="btn btn-danger" 
+                                         id="deleteButtonCat"><i class="fas fa-trash"></i></a>
+                                         <a th:href="@{/Details(idPerson=${el.idPerson})}" class="btn btn-info"><i class="fas fa-list"></i></a>
+                                         
+                                    </td>
+                                </tr>
+                 
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                       <th>ID</th>
+                        <th>PHOTOS</th>
+                    <th>CODE ELEVES</th>
+                    <th>NOM</th>
+                    <th>PRENOM</th>
+                    <th>SEXE</th>
+                    <th>DATE NAIS.</th>
+                    <th>LIEU NAIS.</th>
+                    <th>DERNIER ETAB.</th>
+                    <th>RELIGION</th>
+                    <th>DERNIER CLASSE FREQ.</th>
+                    <th>TEL</th>
+                    <th>PIECE FOURN.</th>
+                      <th>ADRESSE</th>
+                    <th>CLASSE</th>
+                    <th>ANNEE ACA.</th>
+                    <!-- <th>TYPE BOURSE</th> -->                    
+                    <th>ACTION</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          </div>
+          </div>
+          </section>
+  <!-- /.content-wrapper -->
+  
+         
+            
+  			<!-- /.Modal delete -->
+								<div class="modal fade" id="deleteCat">
+									<div class="modal-dialog">
+										<div class="modal-content bg-danger">
+											<div class="modal-header">
+												<h4 class="modal-title">
+													Requête en cours&hellip;<br>En attente de votre
+													confirmation
+												</h4>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<p>Voulez-vous vraiment supprimer?</p>
+											</div>
+											<div class="modal-footer justify-content-between">
+												<button class="btn btn-outline-light" data-dismiss="modal">Close</button>
+												<a href="" type="button" class="btn btn-outline-light"
+													id="delRef">Oui</a>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal-dialog -->
+								</div>
+								<!-- /.modal delete-->
+  
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="FontEnd/layout1">
+
+<body>
+<div layout:fragment="content11">
+
+<!--====== SLIDER PART START ======-->    
+    <section id="page-banner" class="pt-105 pb-130 bg_cover" data-overlay="4" style="background-image: url(frontend/images/page-banner-3.jpg)">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-banner-cont">
+                        <h2>Formulaire D'inscription</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                               <!--  <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li> -->
+                                <li class="breadcrumb-item active" aria-current="page">Formulaire D'inscription</li>
+                            </ol>
+                        </nav>
+                    </div> <!-- page banner cont -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+    <br>
+        <!--====== COUNT DOWN PART START ======-->
+    <!-- data-overlay="8" -->
+    <section id="count-down-part" class="bg_cover pt-70 pb-120" data-overlay="4" style="background-image: url(frontend/images/bg-2.jpg)">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                
+                <div class="col-lg-12 offset-lg-0.5 col-md-8">
+                    <div class="category-form category-form-3 pt-50">
+                       <!--  <div class="form-title text-center"  >
+                        <div class="float-right margin-top ">
+                             <h3>Get 50 courses free!</h3>
+                            <span>Sign up now </span>
+                        </div>                            
+                            <div class="col-lg-2 col-md-8">
+                    <div class="teachers-left mt-50">
+                        <div class="hero">
+                            <img src="frontend/images/teachers/t-1.jpg" alt="Teachers">
+                            <img id="thumbnail" alt="preview" src="frontend/images/insert.png"/>
+                        </div>                       
+                        
+                    </div> teachers left
+                </div>
+                        </div> -->
+                        <div class="main-form">
+                          
+                            
+                            <div class="col-lg-18">
+                    <div class="teachers-right mt-50">
+                        <ul class="nav nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="active" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="true">INFORMATION PERSONNELLE</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="false">INFORMATION PARENTAL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">(OU)PERSONNE RESPONSABLE</a>
+                            </li>
+                        </ul> <!-- nav -->
+                         <form  th:action="@{/saveInscriEnLigne}" method="post" th:object="${eleves}" id="quickForm"  enctype="multipart/form-data" >
+                        <div class="tab-content" id="myTabContent">
+                        
+                       
+                        <!-- 1ererrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr -->
+                         <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                                <div class="dashboard-cont">
+                                 <div class="contact-from">
+                        <div class="section-title">
+                            <h5>INFORMATION PERSONNELLE</h5>                            
+                        </div> <!-- section title -->
+                        <div class="main-form pt-45">  
+                               
+                                <div class="row">
+                              
+                                    <div class="col-md-6">									
+                                        <div class="singel-form form-group"><label>Code:</label>                                            
+                                            <input th:value="${genererCode1}" type="text" class="form-control" name="codeEl" readonly >                                            
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>Nom:</label>
+                                             <input type="text" class="form-control" th:field="*{nom}" id="nomEt" pattern="^[A-Za-z]+[ -]?[A-Za-z]+$" maxlength="20"  required 
+															 onkeyup="this.value=this.value.toUpperCase()" >
+                                            <div class="invalid-feedback"></div>
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>Prenom:</label>
+                                             <input type="text" class="form-control" th:field="*{prenom}" id="pren" pattern="^[A-Za-z]+[ -]?[A-Za-z]+$" maxlength="40" required onkeyup="this.value=this.value.toUpperCase()">
+                                            <div class="invalid-feedback"></div>
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    <div class="col-md-6">									
+                                        <div class="singel-form form-group"><label>Sexe:</label>
+                                            <select th:field="*{sexe}" class="form-control" required>
+                                            <option value="">-SELECT-</option>													 
+						           <option value="Masculin">Masculin</option>
+						           <option value="Femunin">Femunin</option>														
+					          </select>
+                                         <div class="invalid-feedback"></div>   
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>Date Naissance:</label>
+                                            <input type="date" class="form-control" th:field="*{dateNaissance}" id="datee" onchange="ss()" required >
+                                            <div class="invalid-feedback"></div>
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>Lieu De Naissance:</label>
+                                             <input type="text" class="form-control" th:field="*{lieuDeNaissance}" id="lieuDNa"
+														 pattern="^[A-Z]+[ -]?[A-Z]+[ -]?[A-Z]+$" maxlength="35" required onkeyup="this.value=this.value.toUpperCase()" >
+                                            <div class="invalid-feedback"></div>
+                                        </div> 
+                                    </div>
+                                    <!-- <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>Date Bapteme:</label>
+                                            <input type="date" class="form-control" th:field="*{dateBapteme}" required>
+                                            <div class="invalid-feedback"></div>
+                                        </div> singel form
+                                    </div> -->
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>DERNIER ETABLISSEMENT FREQUENTE:</label>
+                                            <input type="text" th:field="*{dernierEtablissement}" class="form-control"  onkeyup="this.value=this.value.toUpperCase()">
+                                            
+                                        </div> <!-- singel form -->
+                                    </div>
+                                     <div class="col-md-6">
+                                        <div class="singel-form form-group"> <label>RELIGION:</label>
+                                           <select th:field="*{religion}" class="form-control">													 
+						           <option value="CATHOLIQUE">CATHOLIQUE</option>
+															<option value="BAPTISTE">BAPTISTE</option>
+															<option value="ADVENTISTE">ADVENTISTE</option>
+															<option value="PENCOTISTE">PENCOTISTE</option>
+															<option value="TEMOINS DE JEHOVAH">TEMOINS DE JEHOVAH</option>
+															<option value="AUTRES">AUTRES</option>														
+					          </select>
+                                            <div class="invalid-feedback"></div>
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>DERNIER CLASSE FREQUENTE:</label>
+                                           <input type="text" th:field="*{dernierClasse}" class="form-control"  onkeyup="this.value=this.value.toUpperCase()">
+                                           
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>PIECE FOURNIES:</label>
+                                            <select
+															th:field="*{pieceFournies}" class="form-control">
+															<option value="CERTIFICAT DE NAISSANCE">CERTIFICAT
+																DE NAISSANCE</option>
+															<option value="CERTIFICAT DE BAPTEME">CERTIFICAT
+																DE BAPTEME</option>
+															<option value="EXTRAIT D'ARCHIVES">EXTRAIT
+																D'ARCHIVES</option>
+															<option value="CARTE IDENTIFICATION">CARTE
+																IDENTIFICATION</option>
+														</select>
+                                            <div class="invalid-feedback"></div>
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>ADRESSE DE L'ENFANT:</label>
+                                           <input type="text" th:field="*{adresse}" class="form-control" required>
+                                            <div class="invalid-feedback"></div>
+                                        </div> <!-- singel form -->
+                                    </div>                                    
+                                     <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>Picture:</label>
+                                           <input type="file" class="form-control" id="pic" name="photos" accept="image/png,image/jpeg">                                           
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"> <label>INSCRIT EN:</label>
+                                            <select class="form-control" th:field="*{classe}" onchange="ss()" required>
+                                            <option value="">-SELECT-</option>
+														<th:block th:each="l: ${listeClasse}">
+																<option th:text="${l.classeName}" th:value="${l.idClasse}" th:id="${l.idClasse}"></option>
+														</select>
+                                            <div ></div>
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    
+                                    <script type="text/javascript">
+var id=0;
+function ss(){
+	id=$('#classe').val()
+	var d=new Date($('#datee').val());
+	contrainteDate(d.getFullYear());
+
+}
+
+
+	function contrainteDate(dat){
+			var d1=new Date();
+			var dat1=d1.getFullYear();
+	var result=dat1-dat;
+
+	if(result>1){
+if(result>=2 && result<=4){
+	
+
+			var t1=contrainteClasse($('#classe #'+id).text(),"3eme annee");
+				var t2=contrainteClasse($('#classe #'+id).text(),"4eme annee");
+			var t3=contrainteClasse($('#classe #'+id).text(),"5eme annee");
+			var t4=contrainteClasse($('#classe #'+id).text(),"6eme annee");
+					
+			var t5=contrainteClasse($('#classe #'+id).text(),"8eme annee");
+			var t6=contrainteClasse($('#classe #'+id).text(),"9eme annee");
+			var t7=contrainteClasse($('#classe #'+id).text(),"3eme");
+			var t8=contrainteClasse($('#classe #'+id).text(),"seconde");
+		var t9=contrainteClasse($('#classe #'+id).text(),"Retho");
+		var t10=contrainteClasse($('#classe #'+id).text(),"Philo");
+	var t11=contrainteClasse($('#classe #'+id).text(),"7eme annee");
+		if(t1 || t2 || t3 || t4 || t5 || t6 || t7 || t8 || t9 || t10 || t11){
+alert("classe incorrect");
+	$('#classe').val("1ere et 2eme annee");
+		}
+		}
+
+if(result>=4 && result<=8){
+			var t3=contrainteClasse($('#classe #'+id).text(),"5eme annee");
+			var t4=contrainteClasse($('#classe #'+id).text(),"6eme annee");
+					
+			var t5=contrainteClasse($('#classe #'+id).text(),"8eme annee");
+			var t6=contrainteClasse($('#classe #'+id).text(),"9eme annee");
+			var t7=contrainteClasse($('#classe #'+id).text(),"3eme");
+			var t8=contrainteClasse($('#classe #'+id).text(),"seconde");
+		var t9=contrainteClasse($('#classe #'+id).text(),"Retho");
+		var t10=contrainteClasse($('#classe #'+id).text(),"Philo");
+	var t11=contrainteClasse($('#classe #'+id).text(),"7eme annee");
+	if( t3 || t4 || t5 || t6 || t7 || t8 || t9 || t10 || t11){
+alert("classe incorrect");
+	$('#classe').val("3eme et 4eme annee");
+		}
+			
+}
+
+if(result>=8 && result<=14){
+	var t11=contrainteClasse($('#classe #'+id).text(),"7eme annee");
+			var t5=contrainteClasse($('#classe #'+id).text(),"8eme annee");
+			var t6=contrainteClasse($('#classe #'+id).text(),"9eme annee");
+			var t7=contrainteClasse($('#classe #'+id).text(),"3eme");
+			var t8=contrainteClasse($('#classe #'+id).text(),"seconde");
+		var t9=contrainteClasse($('#classe #'+id).text(),"Retho");
+		var t10=contrainteClasse($('#classe #'+id).text(),"Philo");
+	if(t5 || t6 || t7 || t8 || t9 || t10 || t11){
+alert("classe incorrect");
+	$('#classe').val("5eme a 6eme annee");
+		}
+			
+}
+		if(result<=15){
+	
+	var t12=contrainteClasse($('#classe #'+id).text(),"Aucun");
+	
+		}
+	}
+	else{
+		
+		alert('date incorrect');		
+		$('#datee').val("");
+	}
+
+	}
+
+function contrainteClasse(classe,classeInitial){
+	var test=false;
+	if(classeInitial!="Aucun"){
+	if(classe==classeInitial){
+		test=true;
+	}
+}
+	return test;
+}
+</script>
+                                    
+                                    
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>Annee Academique:</label>
+                                             <select class="form-control" th:field="*{anneeAcade}">
+															<th:block th:each="a: ${listeAnnee}">
+																<option th:text="${a.anneeAC}" th:value="${a.idAcad}"></option>
+														</select>
+                                           <div class="invalid-feedback"></div>
+                                        </div> <!-- singel form -->
+                                    </div>                                     
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>TELEPHONE</label>
+                                            <input type="text" th:field="*{telephone}" class="form-control" required>
+                                            <div class="invalid-feedback"></div>
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>Email</label>
+                                            <input type="text" name="emailPersonne" class="form-control" id="emailPers"  required pattern="^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$"/>
+                                           <div class="invalid-feedback"></div>
+                                        </div> <!-- singel form -->
+                                    </div>
+                                    
+ 
+                                </div> <!-- row -->
+                            
+                        </div> <!-- main form -->
+                    </div> <!--  contact from -->
+                                </div> <!-- dashboard cont -->
+                            </div>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <!-- 2ememmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
+                             <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="courses-tab">                             
+                                <div class="dashboard-cont">
+                                 <div class="contact-from">
+                        <div class="section-title">
+                            <h5>INFORMATION DU PERE</h5>                            
+                        </div> <!-- section title -->
+                        <div class="main-form pt-45">                            
+                                <div class="row">
+                                    <!-- <div class="col-md-6">									
+                                        <div class="singel-form form-group"><label>NOM COMPLET DU PERE:</label>
+                                            <input type="text" th:field="*{nomCPere}" class="form-control">                                            
+                                        </div> singel form
+                                    </div> -->
+                                   <!--  <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>TELEPHONE 1:</label>
+                                             <input	type="text"  class="form-control" th:field="*{tel1P}">                                           
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>TELEPHONE 2:</label>
+                                            <input type="text" th:field="*{tel2P}" class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>EMAIL:</label>
+                                            <input type="email" th:field="*{emailP}" class="form-control">                                            
+                                        </div> 
+                                    </div> -->
+                                    <!--******************** INFORMATION DE LA MERE ***************************-->
+                                   <!--  <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>NOM COMPLET DE LA MERE:</label>
+                                            <input type="text" th:field="*{nomCMere}" class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>TELEPHONE 1:</label>
+                                             <input	type="text"  class="form-control" th:field="*{tel1M}"/>                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>TELEPHONE 2:</label>
+                                            <input type="text" th:field="*{tel2M}" class="form-control">                                           
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>EMAIL:</label>
+                                            <input type="email" th:field="*{emailM}" class="form-control">                                           
+                                        </div> 
+                                    </div> -->
+                                </div>                             
+                        </div> <!-- main form -->
+                    </div> <!--  contact from -->
+                                
+                                </div> <!-- courses cont -->
+                            </div>
+                        
+                        
+                        
+                        <!-- 3emmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
+                           <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                               <div class="dashboard-cont">
+                                    <div class="contact-from">
+                        <div class="section-title">
+                            <h5>PERSONNE RESPONSABLE</h5>                            
+                        </div> <!-- section title -->
+                        <div class="main-form pt-45">                            
+                                <div class="row">
+                                   <!--  <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>PERSONNE RESPONSABLE:</label>
+                                            <input type="text" th:field="*{nomCPersResp}" class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>TELEPHONE 1:</label>
+                                             <input	type="text" th:field="*{tel1Pers}" class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>TELEPHONE 2:</label>
+                                            <input type="text" th:field="*{tel2Pers}" class="form-control">                                            
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>EMAIL:</label>
+                                            <input type="email" th:field="*{emailPers}" class="form-control">                                            
+                                        </div> 
+                                    </div> -->
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>PERSONNE A CONTACTER EN CAS D'URGENCE:</label>
+                                            <input type="text" th:field="*{contactPers}" class="form-control" pattern="^[A-Za-z]+[ -]?[A-Za-z]+$" maxlength="20"  required
+																 onkeyup="this.value=this.value.toUpperCase()" id="PersUrgF" />
+                                            <div class="invalid-feedback"></div>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>LIEN PARENTAL:</label>
+                                            <input type="text" th:field="*{lienParental}" class="form-control" pattern="^[A-Za-z]+[ -]?[A-Za-z]+$" maxlength="20"  required
+																id="LienPf" onkeyup="this.value=this.value.toUpperCase()">
+                                            <div class="invalid-feedback"></div>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>TELEPHONE 1:</label>
+                                            <input type="text" th:field="*{tel1ConPers}" class="form-control">
+                                            <div class="invalid-feedback"></div>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="singel-form form-group"><label>TELEPHONE 1:</label>
+                                            <input type="text" th:field="*{tel2ConPers}" class="form-control">
+                                        </div> 
+                                    </div>
+
+                                </div>                             
+                        </div> <!-- main form -->
+                    </div> <!--  contact from -->
+                                </div> <!-- reviews cont -->
+                            </div>
+                        
+                                                      <div class="col-lg-12 row h-100 justify-content-center align-items-center">
+                                                        <div class="form-singel">
+                                                           <button type="submit" class="main-btn">Suivant</button>
+                                                        </div>
+                                                    </div>
+                                                   
+                        </div> <!-- tab content --> 
+                        </form>                     
+                        </div>
+                        
+                    </div> 
+                        </div>
+                    </div> <!-- category form -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+    
+    <!--====== COUNT DOWN PART ENDS ======-->
+    <!--====== PAGE BANNER PART ENDS ======-->
+
+   <br><br><br>
+    
+ </div>   
+</body>
+</html>

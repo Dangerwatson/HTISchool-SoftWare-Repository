@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http//www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTISchool | Manager</title>
+
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet"
+	href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="dist/css/adminlte.min.css">
+<!--******* daterange picker *********-->
+<link rel="stylesheet"
+	href="plugins/daterangepicker/daterangepicker.css">
+<!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet"
+	href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- Bootstrap Color Picker -->
+
+<link rel="stylesheet"
+	href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet"
+	href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- Select2 -->
+<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+<link rel="stylesheet"
+	href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<!-- Bootstrap4 Duallistbox -->
+<link rel="stylesheet"
+	href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+<!-- BS Stepper -->
+<link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css">
+<!-- dropzonejs -->
+<link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css">
+
+<!--*************** DataTables **************-->
+<link rel="stylesheet"
+	href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet"
+	href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet"
+	href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+</head>
+<body
+	class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+	<div class="wrapper">
+
+		<!-- Preloader -->
+		<div
+			class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__wobble" src="dist/img/AdminLTELogo.png"
+				alt="AdminLTELogo" height="60" width="60">
+		</div>
+
+		<!-- Navbar -->
+		<nav class="main-header navbar navbar-expand navbar-dark">
+			<!-- Left navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
+					href="#" role="button"><i class="fas fa-bars"></i></a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a
+					href="index3.html" class="nav-link">Home</a></li>
+									  <div class="header-right">
+					  
+					  <li class="nav-item d-none d-sm-inline-block"><a
+					href="#" class="nav-link"> <span   class="fa fa-microphone talk "></span></a></li>
+					
+		 <!-- <span   class="fa fa-microphone talk "></span> -->
+     <h8 class="content"></h8> 
+     									<span style="visibility: hidden" id="name" class="name"
+										sec:authentication="principal.authorities"></span> <input
+										type="hidden" id="add" name="role">
+
+																	
+	<script>
+        // The JavaScript Part Starts
+        const btn = document.querySelector('.talk');
+         const content = document.querySelector('.content'); 
+     	const name = document
+		.getElementById("name").textContent;
+
+	document.getElementById("add").value = name;
+	const val=name;
+
+        const ajouter_classe = [
+        	
+            "le formulaire d'une nouvelle classe a l'affiche "
+     ];
+     
+     const ajouter_paiement = [
+    	 "le formulaire d'ajout d'un nouveau paiement affiche "
+  ];
+     
+     const enreg_selle = [
+    	 "le formulaire d'ajout d'un nouveau test selles affiche "
+  ];
+     
+     const enreg_hem = [
+    	 "le formulaire d'enregistrement d'un nouveau test hemmogramme affiche "
+  ];
+     
+     const enreg_urine = [
+     	
+         "le formulaire d'un nouveau text examen urine affiche "
+  ];
+     const enreg_sper = [
+      	
+         "le formulaire d'un nouveau text examen spermatogramme affiche "
+  ];
+    
+      const errors=["vous etes pas autorise veuillez demander autorisation!"]; 
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition =  new SpeechRecognition();
+  
+         recognition.lang = 'fr-FR';
+
+         /* recognition.onstart = function(){
+            console.log("Comment puis-je vous aidez ?")
+        }  */
+        recognition.onresult = function (event) {
+            const current = event.resultIndex;
+
+            const transcript = event.results[current][0].transcript;
+            content.textContent = transcript;
+            transcript.lang = 'fr-FR';
+            readOutLoud(transcript);
+
+        };
+
+        btn.addEventListener('click', () =>{
+        	recognition.lang = 'fr-FR';
+            recognition.start();
+            
+        });
+
+
+        function readOutLoud(message){
+            const speech = new SpeechSynthesisUtterance();
+            speech.lang = 'fr-FR';
+            speech.text = "Je ne comprends pas ou ce que vous recherchez n'existe pas dans l'application";
+			
+
+         /*    if(message.includes('ajouter une d classe' )){
+            	
+                const finalText = 
+                	ajouter_classe[Math.floor(Math.random()*ajouter_classe.length)];
+                ajouter_classe.lang = 'fr-FR';
+                speech.text = finalText;
+                
+                window.open('http://localhost:8082/classes')
+  			} */
+                
+             
+            /*  if(message.includes('ajouter un nouveau paiement')){
+                 const finalText = 
+                	 ajouter_paiement[Math.floor(Math.random()*ajouter_paiement.length)];
+                 ajouter_paiement.lang = 'fr-FR';
+                 speech.text = finalText;
+                 
+                 window.open('http://localhost:2010/technicien/addPaiement/')
+                 }
+             
+             if(message.includes('enregistrer un test selle')){
+                 const finalText = 
+                	 enreg_selle[Math.floor(Math.random()*enreg_selle.length)];
+                 enreg_selle.lang = 'fr-FR';
+                 speech.text = finalText; 
+                 window.open('http://localhost:2010/technicien/enregistrerExamenrSelle/')
+                 }
+              */
+             if(message.includes('ajouter classe' )){
+             	if(val!=="[DIRECTEUR(TRICE)]"){
+   				  const finalText = 
+   	                	errors[Math.floor(Math.random()*errors.length)];
+   	                errors.lang = 'fr-FR';
+   	                speech.text = finalText;
+   	                /* vous etrs pas otoriser comme directeur */
+   	             window.open('http://localhost:1011/notAutorized')
+   			}else{
+                 const finalText = 
+                	 ajouter_classe[Math.floor(Math.random()*ajouter_classe.length)];
+                 ajouter_classe.lang = 'fr-FR';
+                 speech.text = finalText;                 
+                 window.open('http://localhost:1011/classes')
+   			}
+                 }
+             
+          /*    if(message.includes('enregistrer un test hemmogramme')){
+            	 const finalText = 
+            		 enreg_hem[Math.floor(Math.random()*enreg_hem.length)];
+            	 enreg_hem.lang = 'fr-FR';
+                 speech.text = finalText;
+                 window.open('http://localhost:2010/technicien/enregistrerExamenHemogramme/')
+            	
+                 }
+             if(message.includes('ajouter un nouveau test urine')){
+                 const finalText = 
+                	 enreg_urine[Math.floor(Math.random()*enreg_urine.length)];
+                 enreg_urine.lang = 'fr-FR';
+                 speech.text = finalText;
+                 window.open('http://localhost:2010/enregisterExamenUrine/')
+                 }
+             if(message.includes('ajouter un nouveau test spermato')){
+                 const finalText = 
+                	 enreg_sper[Math.floor(Math.random()*enreg_sper.length)];
+                 enreg_sper.lang = 'fr-FR';
+                 speech.text = finalText;
+                 window.open('http://localhost:2010/technicien/enregistrerExamenHemogramme/')
+                 } */
+            
+             
+            speech.volume = 1;
+            speech.rate = 1.1;
+            speech.pitch = 1;
+
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+			</ul>
+
+			<!-- Right navbar links -->
+			<ul class="navbar-nav ml-auto">
+				<!-- Navbar Search -->
+				
+					
+					
+						<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbardrop"> 
+						<b>USERS </b>
+						<!-- <span sec:authentication="name"></span> -->
+						 
+					</a>
+						<div class="dropdown-menu">
+							<a th:href="@{/login}" class="dropdown-item">logout</a> 
+							<a href="#" class="dropdown-item">profile</a>
+						</div></li>
+				</ul>
+				
+				
+				   <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="nav-icon fas fa-calendar-alt" title="Nouvelle année académique"></i>          
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">         
+         
+          
+          <div class="dropdown-divider"></div>
+          <a href="#" data-toggle="modal" data-target="#modal-default" class="dropdown-item">
+            <i class="fa fa-plus-square	"></i> Nouvelle année académique           
+          </a>
+          <div class="dropdown-divider"></div>
+          <a th:href="@{/ListeAnne}" class="dropdown-item">
+            <i class="fa fa-list mr-2"></i> Liste des Annees            
+          </a>          
+        </div>
+      </li>
+<!-- notificationnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn -->
+				<!-- Messages Dropdown Menu -->
+				<li class="nav-item dropdown"><a class="nav-link"
+					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i>
+						<span id="counter" class="badge badge-danger navbar-badge">3</span>
+				</a>
+					<div id="message-bloc" class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+						
+						<a th:each="nof:${listeNotif}" class="dropdown-item message">
+						 <!-- Message Start -->
+							<div class="media">
+								<img src="dist/img/a.png" alt="User Avatar"
+									class="img-size-50 mr-3 img-circle">
+								<div class="media-body">
+									<h3 th:text="${nof.title}" class="dropdown-item-title">
+										 <span  class="float-right text-sm text-danger"><i
+											class="fas fa-star"></i></span>
+									</h3>
+									<p class="text-sm" th:text="${nof.message}"></p>
+									
+								</div>
+							</div> <!-- Message End -->
+							
+						</a>
+						
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item dropdown-footer">See All
+							Messages</a>
+					</div></li>
+				<!-- Notifications Dropdown Menu -->
+				
+					
+				<li class="nav-item"><a class="nav-link"
+					data-widget="fullscreen" href="#" role="button"> <i
+						class="fas fa-expand-arrows-alt"></i>
+				</a></li>
+				<li class="nav-item"><a class="nav-link"
+					data-widget="control-sidebar" data-slide="true" href="#"
+					role="button"> <i class="fas fa-th-large"></i>
+				</a></li>
+			</ul>
+		</nav>
+		<!-- /.navbar -->
+
+		<!-- Main Sidebar Container -->
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<!-- Brand Logo -->
+			<a href="index3.html" class="brand-link"> <img
+				th:src="@{/getPhotoEcole(idEcole=${#authentication.getPrincipal().getUserPhotos()})}"
+				alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+				width="100" height="100" style="opacity: .8"> <span
+				class="brand-text font-weight-light"
+				th:text="${#authentication.getPrincipal().getUser1()}"></span>
+			</a>
+
+			<!-- Sidebar -->
+			<div class="sidebar">
+				<!-- Sidebar user panel (optional) -->
+				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+					<!-- <div class="image">
+						<img src="dist/img/user2-160x160.jpg"
+							class="img-circle elevation-2" alt="User Image">
+					</div> -->
+					<form th:action="@{/logout}" method="post">
+					<div class="info">					
+						<a href="#" class="d-block">Welcome <b>[[${#request.userPrincipal.principal.fullName}]]</b><br>
+						 <span style="color:#FFC107" sec:authentication="principal.authorities"></span></a>
+					</div>
+					</form>
+				</div>
+
+				<!-- SidebarSearch Form -->
+				<!-- <div class="form-inline">
+					<div class="input-group" data-widget="sidebar-search">
+						<input class="form-control form-control-sidebar" type="search"
+							placeholder="Search" aria-label="Search">
+						<div class="input-group-append">
+							<button class="btn btn-sidebar">
+								<i class="fas fa-search fa-fw"></i>
+							</button>
+						</div>
+					</div>
+				</div> -->
+
+				<!-- Sidebar Menu -->
+				<nav class="mt-2">
+					<ul class="nav nav-pills nav-sidebar flex-column"
+						data-widget="treeview" role="menu" data-accordion="false">
+						<!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+						<li class="nav-item"><a th:href="@{HTISchool}"
+							class="nav-link"> <i class="nav-icon fas fa-home"></i>
+								<p>
+									Home <span class="right badge badge-primary">Home</span>
+								</p>
+						</a></li>
+						 
+			
+						<li class="nav-item"><a  class="nav-link"> <i
+								class="nav-icon fas fa-door-closed"></i>
+								<p>
+									 CLASSES <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">								
+								<li  class="nav-item"><a th:href="@{/classes(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Ajouter une classe</p>
+								</a></li>
+								<li class="nav-item"><a  th:href="@{ListerClasses(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Liste des classes</p>
+								</a></li>
+							</ul></li>
+
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-graduation-cap"></i>
+								<p>
+									 ELEVES <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								
+								<li class="nav-item"><a  th:href="@{inscription(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Ajouter un élèves</p>
+								</a></li>
+								<!-- <li class="nav-item"><a  th:href="@{listInscrit(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Liste des élèves</p>
+								</a></li> -->
+								<li class="nav-item"><a th:href="@{listeEl(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Liste des élèves/Classe</p>
+								</a></li>								
+							</ul></li>
+
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-book"></i>
+								<p>
+									 MATIERES <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a href="#" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
+										<p>
+											Catégorie de Matière <i class="right fas fa-angle-left"></i>
+										</p>
+								</a>
+									<ul class="nav nav-treeview">
+										<li class="nav-item"><a  th:href="@{/cate_matiere(idEcole=${#authentication.getPrincipal().getEcol()})}" class="nav-link"> <i
+												class="far fa-dot-circle nav-icon"></i>
+												<p>Ajouter une catégorie</p>
+										</a></li>
+										<li class="nav-item"><a  th:href="@{/liste_cate_matiere(idEcole=${#authentication.getPrincipal().getEcol()})}" class="nav-link"> <i
+												class="far fa-dot-circle nav-icon"></i>
+												<p>Lister des catégorie</p>
+										</a></li>
+									</ul></li>
+								<li class="nav-item"><a  th:href="@{/AjouterMatieres(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Ajouter une Matière</p>
+								</a></li>
+								<!-- <li class="nav-item"><a  th:href="@{/listerMatieres(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Liste des Matière</p>
+								</a></li> -->
+								<li class="nav-item"><a th:href="@{listeMatiereC(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Liste Matière/Classe</p>
+								</a></li>
+							</ul></li>
+
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-male"></i>
+								<p>
+									 PROFESSEURS <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a  th:href="@{/AjouterProfesseur(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Ajouter un professeur</p>
+								</a></li>
+								<li class="nav-item"><a  th:href="@{/listeProfesseurs(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Liste des professeur</p>
+								</a></li>
+								<li class="nav-item"><a href="pages/charts/inline.html"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Pointage des professeur</p>
+								</a></li>
+							</ul></li>
+
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-folder-open"></i>
+								<p>
+									 EXAMENS <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								
+								<li class="nav-item"><a  th:href="@{/releve_notes(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Ajouter des notes</p>
+								</a></li>
+								<li class="nav-item"><a  th:href="@{/calculMoyenne(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Calcul Moyenne</p>
+								</a></li>
+								<li class="nav-item"><a  th:href="@{/listeNote(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Lister Notes</p>
+								</a></li>
+								<li class="nav-item"><a th:href="@{findEleveByClasse}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Bulletin</p>
+								</a></li>								
+							
+							</ul></li>
+							
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-male"></i>
+								<p>
+									 BOURSE <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+								<ul class="nav nav-treeview">
+
+
+										<li class="nav-item"><a th:href="@{gestion_bourse}"
+											class="nav-link"> <i class="far fa-dot-circle nav-icon"></i>
+												<p>Ajouter un type</p>
+										</a></li>
+										<li class="nav-item"><a
+											th:href="@{list_type(idEcole=${#authentication.getPrincipal().getEcol()})}"
+											class="nav-link"> <i class="far fa-dot-circle nav-icon"></i>
+												<p>Lister les typess</p>
+										</a></li>
+
+										<li class="nav-item"><a
+											th:href="@{get_bourse(idEcole=${#authentication.getPrincipal().getEcol()})}"
+											class="nav-link"> <i class="far fa-circle nav-icon"></i>
+												<p>Ajouter un borsier</p>
+										</a></li>
+										<li class="nav-item"><a th:href="@{classes(idEcole=${#authentication.getPrincipal().getEcol()})}"
+											class="nav-link"> <i class="far fa-circle nav-icon"></i>
+												<p>Liste des boursiers</p>
+										</a></li>
+									</ul></li>
+
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-credit-card"></i>
+								<p>
+									PAIEMENTS <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a href="#" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
+										<p>
+											Type Paiement <i class="right fas fa-angle-left"></i>
+										</p>
+								</a>
+									<ul class="nav nav-treeview">
+										<li class="nav-item"><a th:href="@{type_paiement}"
+											class="nav-link"> <i class="far fa-dot-circle nav-icon"></i>
+												<p>Ajouter</p>
+										</a></li>
+										<li class="nav-item"><a
+											th:href="@{typePaiement(idEcole=${#authentication.getPrincipal().getEcol()})}"
+											class="nav-link"> <i class="far fa-dot-circle nav-icon"></i>
+												<p>Lister</p>
+										</a></li>
+									</ul></li>
+								<li class="nav-item"><a href="#" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
+										<p>
+											Modalité <i class="right fas fa-angle-left"></i>
+										</p>
+								</a>
+									<ul class="nav nav-treeview">
+										<li class="nav-item"><a
+											th:href="@{modalite(idEcole=${#authentication.getPrincipal().getEcol()})}"
+											class="nav-link"> <i class="far fa-dot-circle nav-icon"></i>
+												<p>Ajouter</p>
+										</a></li>
+										<li class="nav-item"><a th:href="@{modalite(idEcole=${#authentication.getPrincipal().getEcol()})}"
+											class="nav-link"> <i class="far fa-dot-circle nav-icon"></i>
+												<p>Lister</p>
+										</a></li>
+									</ul></li>
+								<li class="nav-item"><a th:href="@{formPaiement}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Ajouter un Paiement</p>
+								</a></li>
+								<li class="nav-item"><a th:href="@{paiement(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Lister</p>
+								</a></li>
+					
+							</ul></li>
+							
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-folder"></i>
+								<p>
+									Liste De Formation <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a th:href="@{listeDeFormationEl(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Liste De Formation</p>
+								</a></li>
+								<li class="nav-item"><a th:href="@{listeDeCesion(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Liste De Decision</p>
+								</a></li>							
+								
+							</ul></li>
+
+							
+							
+						
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-tools"></i>
+								<p>
+									 SETTING SECURITY <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a href="#" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
+										<p>
+											Manage USER <i class="right fas fa-angle-left"></i>
+										</p>
+								</a>
+									<ul class="nav nav-treeview">
+							<li class="nav-item"><a th:href="@{AddRole}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Add Roles</p>
+								</a></li>
+								<li class="nav-item"><a  th:href="@{role(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Liste Roles</p>
+								</a></li>
+							    <li class="nav-item"><a th:href="@{registerUser}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Add Users</p>
+								</a></li>
+								<li class="nav-item"><a th:href="@{users(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Liste Users</p>
+								</a></li>
+								
+							</ul></li>
+								<li class="nav-item"><a th:href="@{setting1}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Change infos</p>
+								</a></li>
+								
+							</ul></li>
+							
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-folder"></i>
+								<p>
+									docs <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a th:href="@{fic(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Ajouter Document</p>
+								</a></li>
+								
+							</ul></li>
+							
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-check"></i>
+								<p>
+									Presence/Absence <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a th:href="@{AjouterPresence}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Ajouter Pres/Ab El</p>
+								</a></li>
+								<li class="nav-item"><a th:href="@{listepresence(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Lister Pres/Ab El</p>
+								</a></li>
+								     <!-- Presence Professeur --><a>PROFESSEUR</a>
+								<li class="nav-item"><a th:href="@{AjouterPresenceProf}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Ajouter Pres/Ab Prof</p>
+								</a></li>
+								<li class="nav-item"><a th:href="@{listepresenceProf(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Lister Pres/Ab Prof</p>
+								</a></li>							
+								
+							</ul></li>
+							
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-clock"></i>
+								<p>
+									EmploiDuTemp <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a th:href="@{Ajouterhoraire}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Ajouter Emploi</p>
+								</a></li>
+								<li class="nav-item"><a th:href="@{listeEmploie(idEcole=${#authentication.getPrincipal().getEcol()})}"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Lister Emploi</p>
+								</a></li>															
+								
+							</ul></li>
+							
+
+					</ul>
+				</nav>
+				<!-- /.sidebar-menu -->
+			</div>
+			<!-- /.sidebar -->
+		</aside>
+
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- /.modal new Annee Academique -->
+
+	<div class="modal fade" id="modal-default">
+
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Nouvelle Année academique</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+<div class="col-12">
+<!-- <div class="col-5">
+
+<input type="number" id="date1" name=""class="form-control">
+</div>
+<div class="col-5" style="float:right">
+<input type="number" id="date2" name=""class="form-control">
+</div> -->
+
+<div class="row">
+		<div class="col-12  col-sm-6">
+			<div class="form-group">				 
+				<input type="number" id="date1" class="form-control">
+			</div>
+		</div>	
+													
+	    <div class="col-12  col-sm-6">
+			<div class="form-group">
+				<input type="number" id="date2" class="form-control" >																
+		    </div>
+		</div>
+</div>
+
+<button type="submit" class="btn btn-primary" onclick="cont()">Verifier</button>
+</div>
+
+		<form th:action="@{/saveAnneAc}" method="post"
+			th:object="${anneeAcademique}">
+	
+					<div class="modal-body">
+					<div class="form-group">
+							<center>
+								<label for="exampleInputEmail1">[[${#authentication.getPrincipal().getUser1()}]]</label>
+							</center>
+							<input type="hidden" class="form-control"
+								th:value="${#authentication.getPrincipal().getEcol()}">
+							<input type="hidden" class="form-control"
+								th:value="${#authentication.getPrincipal().getEcol()}"
+								name="ecole" readonly>
+						</div>
+						<div class="col-12 col-sm-12">
+		
+							<div class="form-group">
+		
+								<input type="text" name="anneeAC" id="anneeAC"  class="form-control"
+									placeholder="Nouvelle année (Ex: YYYY-YYYY)" readonly/>
+							</div>
+							<!-- /.form-group -->
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Save</button>
+					</div>
+							</form>
+<script type="text/javascript">
+	
+	function cont(){
+		var date1=document.getElementById('date1');
+		var date2=document.getElementById('date2');
+		var annees=document.getElementById('anneeAC');
+			
+			 var dateS=new Date();
+		 if(date1.value>dateS.getFullYear()+2 && date2.value>dateS.getFullYear()){
+			date1.value='';
+		date2.value='';
+		$.notify("incorrect ");
+
+	
+		 }
+		 else{
+		 	var dd=date2.value-date1.value;
+		 	if(dd==1){
+		annees.value= date1.value+'-'+date2.value;
+		$.notify("success la date est correcte","success");
+
+		 }
+		 else{
+				date1.value='';
+				date2.value='';
+				
+		     	$.notify("incorrect ");
+
+		 }
+		 }
+		
+	}
+
+</script>
+					
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+	<!-- REQUIRED SCRIPTS -->
+	<!-- jQuery -->
+	<script src="plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- overlayScrollbars -->
+	<script
+		src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="dist/js/adminlte.js"></script>
+
+
+	<!-- jquery-validation -->
+	<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+	<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+
+	<!-- AdminLTE for demo purposes -->
+	<script src="dist/js/demo.js"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+	<script src="dist/js/pages/dashboard2.js"></script>
+	<!-- bs-custom-file-input -->
+	<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+	<script src="plugins/select2/js/select2.full.min.js"></script>
+	<!-- Bootstrap4 Duallistbox -->
+	<script
+		src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+	<!-- InputMask -->
+	<script src="plugins/moment/moment.min.js"></script>
+	<script src="plugins/inputmask/jquery.inputmask.min.js"></script>
+	<!-- date-range-picker -->
+	<script src="plugins/daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap color picker -->
+	<script
+		src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script
+		src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- Bootstrap Switch -->
+	<script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<!-- BS-Stepper -->
+	<script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
+	<!-- dropzonejs -->
+	<script src="plugins/dropzone/min/dropzone.min.js"></script>
+
+	<!-- ************DataTables  & Plugins ********************-->
+	<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+	<script src="plugins/jszip/jszip.min.js"></script>
+	<script src="plugins/pdfmake/pdfmake.min.js"></script>
+	<script src="plugins/pdfmake/vfs_fonts.js"></script>
+	<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+	<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+	<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+	
+	<script th:src="@{/js/notification.js}"></script>
+	<script th:src="@{/js/note.js}"></script>
+	<script th:src="@{/js/Matiere.js}"></script>
+	 <script th:src="@{/js/presence.js}"></script>
+	<script th:src="@{/js/notify.js}"></script>
+	<script th:src="@{/js/Departement.js}"></script>
+	<script th:src="@{/js/ModalitePaiement.js}"></script>
+	 <script th:src="@{/js/GestionErreurs.js}"></script>
+	<script th:src="@{/js/Modifier.js}"></script>
+	<script th:src="@{/js/formEcole.js}"></script>
+	<script th:src="@{/js/formCatEcole.js}"></script>
+	<script th:src="@{/js/formInscrit.js}"></script>
+	<script th:src="@{/js/formCatClasse.js}"></script>
+	<script th:src="@{/js/formClasse.js}"></script>
+	<script th:src="@{/js/formCatMatiere.js}"></script>
+	<script th:src="@{/js/formMatiere.js}"></script>
+	<script th:src="@{/js/formProf.js}"></script>
+	
+	<script th:src="@{/js/formProfEdit.js}"></script>
+	<script th:src="@{/js/tableauEditer.js}"></script>
+	<script th:src="@{/js/bourse.js}"></script>
+	
+	
+	
+	
+	
+
+	<!-- Validation form -->
+	<script>
+		$(function() {
+			$.validator.setDefaults({
+
+			});
+			$('#quickForm')
+					.validate(
+							{
+								rules : {
+									code : {
+										required : true,
+									//email: true,
+									},
+									password : {
+										required : true,
+										minlength : 5
+									},
+									terms : {
+										required : true
+									},
+								},
+								messages : {
+									code : {
+										required : "Ce champs ne doit pas etre vide",
+									// email: "Please enter a vaild email address"
+									},
+									password : {
+										required : "Please provide a password",
+										minlength : "Your password must be at least 5 characters long"
+									},
+									terms : "Please accept our terms"
+								},
+								errorElement : 'span',
+								errorPlacement : function(error, element) {
+									error.addClass('invalid-feedback');
+									element.closest('.form-group')
+											.append(error);
+								},
+								highlight : function(element, errorClass,
+										validClass) {
+									$(element).addClass('is-invalid');
+								},
+								unhighlight : function(element, errorClass,
+										validClass) {
+									$(element).removeClass('is-invalid');
+								}
+							});
+		});
+	</script>
+
+
+	<!-- Calendrier -->
+	<script>
+		$(function() {
+			//Initialize Select2 Elements
+			$('.select2').select2()
+
+			//Initialize Select2 Elements
+			$('.select2bs4').select2({
+				theme : 'bootstrap4'
+			})
+
+			//Datemask dd/mm/yyyy
+			$('#datemask').inputmask('YYYY/MM/DD', {
+				'placeholder' : 'YYYY/MM/DD'
+			})
+			//Datemask2 mm/dd/yyyy
+			$('#datemask2').inputmask('YYYY/MM/DD', {
+				'placeholder' : 'YYYY/MM/DD'
+			})
+			//Money Euro
+			$('[data-mask]').inputmask()
+
+			//Date picker
+			$('#reservationdate').datetimepicker({
+				format : 'YYYY-MM-DD'
+			});
+
+			$('#reservationdate1').datetimepicker({
+				format : 'YYYY-MM-DD'
+			});
+
+			//Date and time picker
+			$('#reservationdatetime').datetimepicker({
+				icons : {
+					time : 'far fa-clock'
+				}
+			});
+
+			//Date range picker
+			$('#reservation').daterangepicker()
+			//Date range picker with time picker
+			$('#reservationtime').daterangepicker({
+				timePicker : true,
+				timePickerIncrement : 30,
+				locale : {
+					format : 'YYYY-MM-DD'
+				}
+			})
+			//Date range as a button
+			$('#daterange-btn').daterangepicker(
+					{
+						ranges : {
+							'Today' : [ moment(), moment() ],
+							'Yesterday' : [ moment().subtract(1, 'days'),
+									moment().subtract(1, 'days') ],
+							'Last 7 Days' : [ moment().subtract(6, 'days'),
+									moment() ],
+							'Last 30 Days' : [ moment().subtract(29, 'days'),
+									moment() ],
+							'This Month' : [ moment().startOf('month'),
+									moment().endOf('month') ],
+							'Last Month' : [
+									moment().subtract(1, 'month').startOf(
+											'month'),
+									moment().subtract(1, 'month')
+											.endOf('month') ]
+						},
+						startDate : moment().subtract(29, 'days'),
+						endDate : moment()
+					},
+					function(start, end) {
+						$('#reportrange span').html(
+								start.format('YYYY/MM/DD') + ' - '
+										+ end.format('YYYY/MM/DD'))
+					})
+
+			//Timepicker
+			$('#timepicker').datetimepicker({
+				format : 'LT'
+			})
+
+			//Bootstrap Duallistbox
+			$('.duallistbox').bootstrapDualListbox()
+
+			//Colorpicker
+			$('.my-colorpicker1').colorpicker()
+			//color picker with addon
+			$('.my-colorpicker2').colorpicker()
+
+			$('.my-colorpicker2').on(
+					'colorpickerChange',
+					function(event) {
+						$('.my-colorpicker2 .fa-square').css('color',
+								event.color.toString());
+					})
+
+			$("input[data-bootstrap-switch]").each(function() {
+				$(this).bootstrapSwitch('state', $(this).prop('checked'));
+			})
+
+		})
+		// BS-Stepper Init
+		document.addEventListener('DOMContentLoaded', function() {
+			window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+		})
+
+		// DropzoneJS Demo Code Start
+		Dropzone.autoDiscover = false
+
+		// Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+		var previewNode = document.querySelector("#template")
+		previewNode.id = ""
+		var previewTemplate = previewNode.parentNode.innerHTML
+		previewNode.parentNode.removeChild(previewNode)
+
+		var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+			url : "/target-url", // Set the url
+			thumbnailWidth : 80,
+			thumbnailHeight : 80,
+			parallelUploads : 20,
+			previewTemplate : previewTemplate,
+			autoQueue : false, // Make sure the files aren't queued until manually added
+			previewsContainer : "#previews", // Define the container to display the previews
+			clickable : ".fileinput-button" // Define the element that should be used as click trigger to select files.
+		})
+
+		myDropzone.on("addedfile", function(file) {
+			// Hookup the start button
+			file.previewElement.querySelector(".start").onclick = function() {
+				myDropzone.enqueueFile(file)
+			}
+		})
+
+		// Update the total progress bar
+		myDropzone
+				.on(
+						"totaluploadprogress",
+						function(progress) {
+							document
+									.querySelector("#total-progress .progress-bar").style.width = progress
+									+ "%"
+						})
+
+		myDropzone.on("sending", function(file) {
+			// Show the total progress bar when upload starts
+			document.querySelector("#total-progress").style.opacity = "1"
+			// And disable the start button
+			file.previewElement.querySelector(".start").setAttribute(
+					"disabled", "disabled")
+		})
+
+		// Hide the total progress bar when nothing's uploading anymore
+		myDropzone.on("queuecomplete", function(progress) {
+			document.querySelector("#total-progress").style.opacity = "0"
+		})
+
+		// Setup the buttons for all transfers
+		// The "add files" button doesn't need to be setup because the config
+		// `clickable` has already been specified.
+		document.querySelector("#actions .start").onclick = function() {
+			myDropzone.enqueueFiles(myDropzone
+					.getFilesWithStatus(Dropzone.ADDED))
+		}
+		document.querySelector("#actions .cancel").onclick = function() {
+			myDropzone.removeAllFiles(true)
+		}
+		// DropzoneJS Demo Code End
+	</script>
+
+	<!-- FILE INPUT -->
+	<script>
+		$(function() {
+			bsCustomFileInput.init();
+		});
+	</script>
+
+	<!-- Page specific script Data tables-->
+	<script>
+		$(function() {
+			$("#example1").DataTable(
+					{
+						"responsive" : true,
+						"lengthChange" : false,
+						"autoWidth" : false,
+						"buttons" : [ "copy", "csv", "excel", "pdf", "print",
+								"colvis" ]
+					}).buttons().container().appendTo(
+					'#example1_wrapper .col-md-6:eq(0)');
+			$('#example2').DataTable({
+				"paging" : true,
+				"lengthChange" : false,
+				"searching" : false,
+				"ordering" : true,
+				"info" : true,
+				"autoWidth" : false,
+				"responsive" : true,
+			});
+		});
+	</script>
+	
+	<!-- Page specific script Data tables-->
+	<script>
+		$(function() {
+			$("#listePres").DataTable(
+					{
+						"responsive" : true,
+						"lengthChange" : false,
+						"autoWidth" : false,
+						"buttons" : [ "copy", "csv", "excel", "pdf", "print"]
+					}).buttons().container().appendTo(
+					'#listePres_wrapper .col-md-6:eq(0)');
+			$('#example2').DataTable({
+				"paging" : true,
+				"lengthChange" : false,
+				"searching" : false,
+				"ordering" : true,
+				"info" : true,
+				"autoWidth" : false,
+				"responsive" : true,
+			});
+		});
+	</script>
+	
+	<script>
+	
+	$(document).ready(function() {
+    var table = $('#example').DataTable( {
+        fixedHeader: true
+    } );
+} );
+
+	</script>
+	
+	<script>
+	$('#example'). dataTable({ 
+	"paging": false,
+	"ordering": true,
+    "info":false,
+	  
+	searching: false
+	
+	});
+	</script>
+
+	
+
+	<script>
+		$('document').ready(function() {
+
+			/* //delClasse
+			$('.table #deleteButton').on('click', function(event) {
+				event.preventDefault();
+				var href = $(this).attr('href');
+				$('#deleteModal #delRef1').attr('href', href);
+				$('#deleteModal').modal();
+
+			}); */
+
+			//delCat
+			$('.table #deleteButtonCat').on('click', function(event) {
+				event.preventDefault();
+				var href = $(this).attr('href');
+				$('#deleteCat #delRef').attr('href', href);
+				$('#deleteCat').modal();
+
+			});
+			
+			//delCat
+			$('.table #deleteButtonEcole').on('click', function(event) {
+				event.preventDefault();
+				var href = $(this).attr('href');
+				$('#deleteEcole #delRef1').attr('href', href);
+				$('#deleteEcole').modal();
+
+			});
+			
+			
+
+		
+			//updateCategorieMatiere
+			$('.table .catMat').on('click', function(event) {
+				event.preventDefault();
+				var href = $(this).attr('href');
+				$.get(href, function(ca, status) {
+					$('#idCatMatEdit').val(ca.idCatMatiere);
+					$('#nomCatMatEdit').val(ca.nomCatMatiere);
+				});
+				$('#updateCatMatModal').modal();
+			});
+			
+			//updateCategorieEcloe
+			$('.table .catEcol').on('click', function(event) {
+				event.preventDefault();
+				var href = $(this).attr('href');
+				$.get(href, function(catEcole, status) {
+					$('#idCatEcoleEdit').val(catEcole.idCatEcole);
+					$('#typeEcoleEdit').val(catEcole.typeEcole);
+				});
+				$('#updateCatE').modal();
+			});
+			
+			
+			
+			
+
+		});
+	</script>
+
+	<script>
+		$('document').ready(function() {
+			
+			
+			
+			
+			//editBourse
+			$('.table #bourse').on('click', function(event) {
+				event.preventDefault();
+				var href = $(this).attr('href');
+				$.get(href, function(typeB, status) {
+					$('#idTypeEdit').val(typeB.idType);
+					$('#typeBourseEdit').val(typeB.typeBourse);
+					$('#coutBourseEdit').val(typeB.coutBourse);					
+				});
+				$('#updateBourse').modal();
+			});
+		});
+	</script>
+	
+		<script>
+		
+		$('document').ready(function() {
+
+			//delProf
+			$('.table #example1 #deleteProf').on('click', function(event) {
+				event.preventDefault();
+				var href = $(this).attr('href');
+				$('#deleteModalProf #delRefe').attr('href', href);
+				$('#deleteModalProf').modal();
+
+			});
+		});
+	</script>
+	
+		<script>
+		var contextPath = "[[@{/}]]";
+	</script>
+	
+	<script>
+  $(function() {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+
+    $('.swalDefaultSuccess').click(function() {
+      Toast.fire({
+        icon: 'success',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.swalDefaultInfo').click(function() {
+      Toast.fire({
+        icon: 'info',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.swalDefaultError').click(function() {
+      Toast.fire({
+        icon: 'error',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.swalDefaultWarning').click(function() {
+      Toast.fire({
+        icon: 'warning',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.swalDefaultQuestion').click(function() {
+      Toast.fire({
+        icon: 'question',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+
+    $('.toastrDefaultSuccess').click(function() {
+      toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+    $('.toastrDefaultInfo').click(function() {
+      toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+    $('.toastrDefaultError').click(function() {
+      toastr.error('hhhhhhhhhhhhhhhhhh')
+    });
+    $('.toastrDefaultWarning').click(function() {
+      toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+
+    $('.toastsDefaultDefault').click(function() {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.toastsDefaultTopLeft').click(function() {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        position: 'topLeft',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.toastsDefaultBottomRight').click(function() {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        position: 'bottomRight',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.toastsDefaultBottomLeft').click(function() {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        position: 'bottomLeft',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.toastsDefaultAutohide').click(function() {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        autohide: true,
+        delay: 750,
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.toastsDefaultNotFixed').click(function() {
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        fixed: false,
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.toastsDefaultFull').click(function() {
+      $(document).Toasts('create', {
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        icon: 'fas fa-envelope fa-lg',
+      })
+    });
+    $('.toastsDefaultFullImage').click(function() {
+      $(document).Toasts('create', {
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        image: '../../dist/img/user3-128x128.jpg',
+        imageAlt: 'User Picture',
+      })
+    });
+    $('.toastsDefaultSuccess').click(function() {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.toastsDefaultInfo').click(function() {
+      $(document).Toasts('create', {
+        class: 'bg-info',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.toastsDefaultWarning').click(function() {
+      $(document).Toasts('create', {
+        class: 'bg-warning',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.toastsDefaultDanger').click(function() {
+      $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.toastsDefaultMaroon').click(function() {
+      $(document).Toasts('create', {
+        class: 'bg-maroon',
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+  });
+  
+  
+  
+  $(document).ready(function(){
+	    $('').keyup(function(){
+	        $(this).val($(this).val().toUpperCase());
+	    });
+	});
+</script>
+<!-- checkkkkkkkkkkkkkkkkk -->
+<script>
+  $(function () {
+    //Enable check and uncheck all functionality
+    $('.checkbox-toggle').click(function () {
+      var clicks = $(this).data('clicks')
+      if (clicks) {
+        //Uncheck all checkboxes
+        $('.mailbox-messages input[type=\'checkbox\']').prop('checked', false)
+        $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square')
+      } else {
+        //Check all checkboxes
+        $('.mailbox-messages input[type=\'checkbox\']').prop('checked', true)
+        $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square')
+      }
+      $(this).data('clicks', !clicks)
+    })
+
+    //Handle starring for font awesome
+    $('.mailbox-star').click(function (e) {
+      e.preventDefault()
+      //detect type
+      var $this = $(this).find('a > i')
+      var fa    = $this.hasClass('fa')
+
+      //Switch states
+      if (fa) {
+        $this.toggleClass('fa-star')
+        $this.toggleClass('fa-star-o')
+      }
+    })
+  })
+</script>
+
+
+<!-- partie add input -->
+<script>  
+ $(document).ready(function(){  
+      var i=1;  
+      $('#add').click(function(){  
+           i++;  
+           $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="nomCat[]" placeholder="Enter your Name" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+      $('#submit').click(function(){            
+           $.ajax({  
+                url:"saveCategorie",  
+                method:"POST",  
+                data:$('#add_name').serialize(),  
+                success:function(data)  
+                {  
+                     //alert(data);  
+                     $('#add_name')[0].reset();  
+                }  
+           });  
+      });  
+ });  
+ </script>
+ 
+  <script>  
+ $(document).ready(function(){  
+      var i=1;  
+      $('#addCat').click(function(){  
+           i++;  
+           $('#dynamic_field_matiere').append('<tr id="row'+i+'"><td><input type="text" name="nomCatMatiere[]" placeholder="Enter your Name" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+      $('#submit_matiere').click(function(){            
+           $.ajax({  
+                url:"saveCatMat",  
+                method:"POST",  
+                data:$('#add_matiere').serialize(),  
+                success:function(data)  
+                {  
+                     //alert(data);  
+                     $('#add_matiere')[0].reset();  
+                }  
+           });  
+      });  
+ });  
+ </script>
+	
+<script> 
+  //Les types de bourse
+ $(document).ready(function(){  
+      var i=1;  
+      $('#add_type').click(function(){  
+           i++;  
+           $('#dynamic_field_type').append('<tr id="row'+i+'"><td><input type="text" name="typeBourse[]" placeholder="Entrer un type" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+      $('#submitType').click(function(){            
+           $.ajax({  
+                url:"saveType",  
+                method:"POST",  
+                data:$('#add_bourse').serialize(),  
+                success:function(data)  
+                {  
+                     //alert(data);  
+                     $('#add_bourse')[0].reset();  
+                }  
+           });  
+      });  
+ });  
+ </script>
+
+	<script> 
+  //Les types de paiement
+ $(document).ready(function(){  
+      var i=1;  
+      $('#add_type_paie').click(function(){  
+           i++;  
+           $('#dynamic_field_type_paiement').append('<tr id="row'+i+'"><td><input type="text" name="typeName[]" placeholder="Entrer un type" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+      $('#submit_type_paie').click(function(){            
+           $.ajax({  
+                url:"saveTypePaiment",  
+                method:"POST",  
+                data:$('#add_type_paiement').serialize(),  
+                success:function(data)  
+                {  
+                     //alert(data);  
+                     $('#add_type_paiement')[0].reset();  
+                }  
+           });  
+      });  
+ });  
+ </script>
+ 
+ <script type="text/javascript">
+ 
+  
+ </script>
+	<section layout:fragment="content"></section>
+</body>
+</html>

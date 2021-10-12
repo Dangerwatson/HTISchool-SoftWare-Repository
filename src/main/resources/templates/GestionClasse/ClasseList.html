@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Liste des Classes</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Liste des Classes</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Content Wrapper. Contains page content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<!-- Tables Data -->
+
+								<div class="card">
+									<div class="card-header">
+										<!-- <h3 class="card-title">DataTable with default features</h3> -->
+										<a th:href="@{classes}"><button type="button" class="btn btn-primary"
+											data-toggle="modal" data-target="#addClasses">add
+											new</button></a>
+										<!-- <a   class="btn btn-warning" data-toggle="modal" data-target="#editModal">edit</a> -->
+									</div>
+									<div class="card-header">
+										<h3 class="card-title">Listes des CLASSES</h3>										
+									</div>
+									<!-- /.card-header -->
+									<div class="card-body">
+									<!-- alert -->
+									<div class="alert alert-success alert-dismissible fade show"  th:if="${success}" role="alert">
+                                         <strong>Enregistrement avec success</strong> 
+                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                         </button>
+                                     </div>
+                                    <!--  alert -->
+										<table id="example1"
+											class="table table-bordered table-striped">
+											<thead>
+												<tr>
+													<th>ID Classe</th>
+													<th>Code Classe</th>
+													<th>Categorie Classe</th>
+													<th>Nom classe</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="c:${listeClasse}">
+													<td th:text="${c.idClasse}"></td>
+													<td th:text="${c.codeClasse}"></td>
+													<td th:text="${c.nomCat}"></td>
+													<td th:text="${c.classeName}"></td>
+													<td><a
+														th:href="@{/editerClasse(idClasse=${c.idClasse})}"
+														class="btn btn-info"><i class="fas fa-edit"></i></a> <a
+														th:href="@{/deleteClasse(idClasse=${c.idClasse})}"
+														class="btn btn-danger" id="deleteButton"><i
+															class="fas fa-trash"></i></a></td>
+												</tr>
+
+											</tbody>
+											<tfoot>
+												<tr>
+													<th>ID Classe</th>
+													<th>Code Classe</th>
+													<th>Categorie Classe</th>
+													<th>Nom classe</th>
+													<th>Action</th>
+												</tr>
+											</tfoot>
+										</table>
+										
+												
+										
+									</div>
+									<!-- /.card-body -->
+								</div>
+								<!-- /.card @{/editerClasse(idClasse=${c.idClasse})}-->
+
+								
+								<!-- /.Modal delete -->
+								<div class="modal fade" id="deleteModal">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">
+													Requête en cours&hellip;<br>En attente de votre
+													confirmation
+												</h4>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<p>Voulez-vous vraiment supprimer?</p>
+											</div>
+											<div class="modal-footer justify-content-between">
+												<button class="btn btn-default" data-dismiss="modal">Close</button>
+												<a href="" type="button" class="btn btn-primary"
+													id="delRef1">Oui</a>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal-dialog -->
+								</div>
+								<!-- /.modal delete-->
+ 
+
+								<!-- /.Modal update -->
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content-wrapper -->
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

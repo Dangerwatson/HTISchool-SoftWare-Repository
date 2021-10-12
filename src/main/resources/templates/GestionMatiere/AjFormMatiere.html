@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="wrapper">
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1> Ajouter Matiere</h1>
+							</div>
+							<div class="col-sm-6">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Gestion des
+										Matiere</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid h-100">
+						<div class="row  h-100 justify-content-center align-items-center">
+							<!-- left column -->
+							<div class="col-md-10">
+								<!-- jquery validation -->
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title"> CLASSE</h3>
+									</div>
+									<!-- /.card-header -->
+									<!--************************** form start ********************************-->
+									<form th:action="@{/saveMatiere}" method="post" th:object="${matiere}">
+									
+										<div class="card-body">
+											<div class="row">
+												
+												<div class="col-12 col-sm-6">
+													<div class="form-group">
+														<label>CATEGORIE MATIERE</label> <select th:field="*{cateMat}" required
+															class="form-control">
+															<option value="">-SELECT-</option>
+															<th:block th:each="cla:${listeCatMat}">
+															<option th:value="${cla.idCatMatiere}" th:text="${cla.nomCatMatiere}"></option>
+														</select>
+													</div>
+													<!-- /.form-group -->
+												</div>
+												<!-- /.col -->
+												<div class="col-sm-6">
+													<!-- select -->
+													<div class="form-group">
+														<label for="exampleInputEmail1">MATIERE</label> <input
+															type="text" class="form-control" name="nomMatiere" id="nomMatiere" pattern="^[A-Z]+[ -]?[A-Z]+$" required onkeyup="this.value=this.value.toUpperCase()">
+															<div class="invalid-feedback"></div>
+													</div>
+												</div>
+												<!-- /.col -->
+											</div>
+											
+											<div class="row">
+												
+												<div class="col-12 col-sm-6">
+													<div class="form-group">
+														<label for="exampleInputEmail1">COEFFICIENT</label> <input
+															type="text" class="form-control" name="coefficient" id="coefficient" pattern="^[0-9]{2,3}" required>
+															<div class="invalid-feedback"></div>
+													</div>
+													<!-- /.form-group -->
+												</div>
+												<div class="col-sm-6">
+													<!-- select -->
+													<div class="form-group">
+														<label>CLASSE</label> <select th:field="*{classe}" required
+															class="form-control">
+															<option value="">-SELECT-</option>
+															<option th:each="c: ${listeClasse}"
+																th:value="${c.idClasse}"
+																th:text="${c.classeName}"></option>
+														</select>
+													</div>
+												</div>
+												
+											</div>
+											
+
+										</div>										
+										
+										<!-- /.card-body -->
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+								<!-- /.card -->
+							</div>
+							<!--/.col (left) -->
+							<!-- right column -->
+							<div class="col-md-6"></div>
+							<!--/.col (right) -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
