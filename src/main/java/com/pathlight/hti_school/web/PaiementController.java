@@ -78,30 +78,30 @@ public class PaiementController {
 		Optional<Paiement> eleve=paiementRepo.findByEleves(eleves);
 		float bal=paiement.getBalance();
 		float qte=lignePaie.getQuantiteVerser();
-		  if(eleve.isEmpty()) {
-			 paiementRepo.save(paiement); 
-			 
-			 //lignePaiement
-			 lignePaie.setPaiement(paiement);
-			 lignePaie.setBalance(bal);
-			 lignePaie.setEleves(eleves);
-			 lignePaie.setQuantiteVerser(qte);
-			 lignePaie.setDatePaie(new Date());
-			 lignePaiementRepo.save(lignePaie);
+			  if(eleve.isPresent()) {
+			 paiementRepo.save(paiement);  
+			  Paiement paie=paiementRepo.findByEleves(eleves).get();
+				float oldBal=paiement.getBalance();
+				float newBal=oldBal+paie.getBalance();
+				paie.setBalance(newBal);
+				paiementRepo.save(paie);
+				
+				 //lignePaiement
+				 lignePaie1.setPaiement(paie);
+				 lignePaie1.setDatePaie(new Date());
+				lignePaiementRepo.save(lignePaie1);
 			 return "redirect:/fich_paiement_print";
 			 }
 		  
 		  else {
-			  Paiement paie=paiementRepo.findByEleves(eleves).get();
-			float oldBal=paiement.getBalance();
-			float newBal=oldBal+paie.getBalance();
-			paie.setBalance(newBal);
-			paiementRepo.save(paie);
-			
-			 //lignePaiement
-			 lignePaie1.setPaiement(paie);
-			 lignePaie1.setDatePaie(new Date());
-			lignePaiementRepo.save(lignePaie1);
+			  
+				 //lignePaiement
+				 lignePaie.setPaiement(paiement);
+				 lignePaie.setBalance(bal);
+				 lignePaie.setEleves(eleves);
+				 lignePaie.setQuantiteVerser(qte);
+				 lignePaie.setDatePaie(new Date());
+				 lignePaiementRepo.save(lignePaie);
 			  }
 		 
 	  return "redirect:/fich_paiement_print"; 
@@ -180,33 +180,34 @@ public class PaiementController {
 		Optional<Paiement> eleve=paiementRepo.findByEleves(eleves);
 		float bal=paiement.getBalance();
 		float qte=lignePaie.getQuantiteVerser();
-		  if(eleve.isEmpty()) {
-			 paiementRepo.save(paiement); 
-			 
-			 //lignePaiement
-			 lignePaie.setPaiement(paiement);
-			 lignePaie.setBalance(bal);
-			 lignePaie.setEleves(eleves);
-			 lignePaie.setQuantiteVerser(qte);
-			 lignePaie.setDatePaie(new Date());
-			 lignePaiementRepo.save(lignePaie);
-			 return "redirect:/fich_paiement_print";
+		 		  if(eleve.isPresent()){
+	
+				Paiement paie=paiementRepo.findByEleves(eleves).get();
+				float oldBal=lignePaie1.getQuantiteVerser();
+				float newBal=paie.getBalance()-oldBal;
+				paie.setBalance(newBal);
+				paiementRepo.save(paie);
+				
+				 //lignePaiement
+				String codeP=lignePaie.getCodePaiement();
+				lignePaie1.setDatePaie(new Date());
+				 lignePaie1.setPaiement(paie);
+				 lignePaie1.setCodePaiement(codeP);
+				 lignePaie1.setModalite("Solde dû");
+				lignePaiementRepo.save(lignePaie1);
 			 }
 		  
 		  else {
-			Paiement paie=paiementRepo.findByEleves(eleves).get();
-			float oldBal=lignePaie1.getQuantiteVerser();
-			float newBal=paie.getBalance()-oldBal;
-			paie.setBalance(newBal);
-			paiementRepo.save(paie);
-			
-			 //lignePaiement
-			String codeP=lignePaie.getCodePaiement();
-			lignePaie1.setDatePaie(new Date());
-			 lignePaie1.setPaiement(paie);
-			 lignePaie1.setCodePaiement(codeP);
-			 lignePaie1.setModalite("Solde dû");
-			lignePaiementRepo.save(lignePaie1);
+				 paiementRepo.save(paiement); 
+				 
+				 //lignePaiement
+				 lignePaie.setPaiement(paiement);
+				 lignePaie.setBalance(bal);
+				 lignePaie.setEleves(eleves);
+				 lignePaie.setQuantiteVerser(qte);
+				 lignePaie.setDatePaie(new Date());
+				 lignePaiementRepo.save(lignePaie);
+				 return "redirect:/fich_paiement_print";
 			  }
 		 
 		  return "redirect:/fich_paiement_print";
