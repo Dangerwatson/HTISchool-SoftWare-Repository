@@ -31,7 +31,7 @@ public class ControllerPage {
 	
 	
 	
-	@GetMapping("/HTISchool-Software")
+	@GetMapping("/index")
 	public String viewHome(Model model) {
 		 
 		return "FontEnd/index";
