@@ -31,7 +31,7 @@ public class ControllerPage {
 	
 	
 	
-	@RequestMapping(value = "/", method =RequestMethod.GET)
+	@GetMapping(value = "/")
 	public String viewHome(Model model) {
 		 
 		return "FontEnd/index";
