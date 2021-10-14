@@ -39,10 +39,10 @@ public class QuizController {
 		return result;
 	}
 	
-	/*@GetMapping("/")
+	@GetMapping("/")
 	public String home() {
 		return "index.html";
-	}*/
+	}
 	
 	@PostMapping("/evaluation")
 	public String quiz(@RequestParam String username, Model m, RedirectAttributes ra) {
