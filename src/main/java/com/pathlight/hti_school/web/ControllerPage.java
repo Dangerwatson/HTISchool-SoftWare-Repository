@@ -31,7 +31,7 @@ public class ControllerPage {
 	
 	
 	
-	@GetMapping("HTISchool-Software")
+	@RequestMapping(value = "/", method =RequestMethod.GET)
 	public String viewHome(Model model) {
 		 
 		return "FontEnd/index";
