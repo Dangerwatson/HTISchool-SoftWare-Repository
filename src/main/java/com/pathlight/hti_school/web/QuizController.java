@@ -39,7 +39,7 @@ public class QuizController {
 		return result;
 	}
 	
-	*/@GetMapping("/")
+	/*@GetMapping("/")
 	public String home() {
 		return "index.html";
 	}*/
