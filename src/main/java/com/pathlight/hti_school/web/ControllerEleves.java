@@ -273,6 +273,11 @@ public class ControllerEleves {
 			  }
 		
 		
+	@GetMapping("/index")
+	public String viewHome() {
+		 
+		return "FrontEnd/index";
+	}
 	  
 		
 	  //login frontend
