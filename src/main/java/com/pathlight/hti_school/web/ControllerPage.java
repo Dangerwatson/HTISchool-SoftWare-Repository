@@ -35,7 +35,7 @@ public class ControllerPage {
 	@GetMapping(value = { "", "/", "index"})
 	public String viewHome(Model model) {
 		 
-		return "FontEnd/index";
+		return "FontEnd/acceuil";
 	}
 	
 	
