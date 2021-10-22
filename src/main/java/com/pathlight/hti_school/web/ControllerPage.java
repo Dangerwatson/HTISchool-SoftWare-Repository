@@ -32,11 +32,7 @@ public class ControllerPage {
 	
 	
 	
-	@GetMapping("index")
-	public String viewHome() {
-		 
-		return "index";
-	}
+	
 	
 	
 	
