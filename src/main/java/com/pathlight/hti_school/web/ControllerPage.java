@@ -32,7 +32,7 @@ public class ControllerPage {
 	
 	
 	
-	@GetMapping(value = { "", "/", "index"})
+	@GetMapping("index")
 	public String viewHome(Model model) {
 		 
 		return "index";
