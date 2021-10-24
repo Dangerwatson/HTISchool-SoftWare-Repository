@@ -135,7 +135,7 @@ public class ControllerEleves {
 		  }
 		 
 		
-			return "redirect:listeEl";
+			return "redirect:listInscrit";
 		
 	  
 	}
