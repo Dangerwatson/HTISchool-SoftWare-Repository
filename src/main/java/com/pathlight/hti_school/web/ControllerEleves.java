@@ -283,7 +283,7 @@ public class ControllerEleves {
 	  //login frontend
 		@GetMapping("/login")
 		  public String log(Model model) {  			  
-			  return  ("InscriptionEnLigne/loginFrontend");
+			  return  ("FontEnd/index");
 			  
 			  }
 		
