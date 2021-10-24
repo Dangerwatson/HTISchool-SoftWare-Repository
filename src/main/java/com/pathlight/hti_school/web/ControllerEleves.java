@@ -273,7 +273,7 @@ public class ControllerEleves {
 			  }
 		
 		
-	@GetMapping("/index")
+	@GetMapping("/")
 	public String viewHome() {
 		 
 		return ("FontEnd/pageAcceuil");
