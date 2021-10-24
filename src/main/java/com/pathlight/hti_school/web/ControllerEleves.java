@@ -276,7 +276,7 @@ public class ControllerEleves {
 	@GetMapping("/index")
 	public String viewHome() {
 		 
-		return "FontEnd/index";
+		return ("FontEnd/index");
 	}
 	  
 		
