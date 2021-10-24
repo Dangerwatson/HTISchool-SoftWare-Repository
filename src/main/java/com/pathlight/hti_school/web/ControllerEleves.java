@@ -276,14 +276,14 @@ public class ControllerEleves {
 	@GetMapping("/index")
 	public String viewHome() {
 		 
-		return ("FontEnd/index");
+		return ("InscriptionEnLigne/loginFrontend");
 	}
 	  
 		
 	  //login frontend
 		@GetMapping("/login")
 		  public String log(Model model) {  			  
-			  return  ("FontEnd/index");
+			  return  ("InscriptionEnLigne/loginFrontend");
 			  
 			  }
 		
