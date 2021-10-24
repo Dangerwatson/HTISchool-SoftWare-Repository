@@ -111,7 +111,7 @@ public class ControllerEleves {
 		  }
 		 
 		  redirAttrs.addFlashAttribute("success",true);
-			return "redirect:/listeEl";
+			return "redirect:/listInscrit";
 		
 	  
 	}
